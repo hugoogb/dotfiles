@@ -24,4 +24,4 @@ udiskie -t &
 
 # Wallpaper
 #nitrogen --restore &
-feh --bg-scale $HOME/dotfiles/wallpapers/wallhaven-498e2w.png &
+feh --bg-scale $HOME/dotfiles/wallpapers/1.png &
