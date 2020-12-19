@@ -171,11 +171,11 @@ alias python="python3"
 
 # Custom aliases
 alias show="tree ."
-alias rm="rm -v"
-alias 'rm -rf'="rm -rfv"
-alias mv="mv -v"
-alias cp="cp -v"
-alias mkdir="mkdir -pv"
+# alias rm="rm -v"
+# alias 'rm -rf'="rm -rfv"
+# alias mv="mv -v"
+# alias cp="cp -v"
+# alias mkdir="mkdir -pv"
 alias path="echo -e ${PATH//:/\\n}"
 
 # Navigate through dirs history
