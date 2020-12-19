@@ -58,7 +58,7 @@ arch_setup(){
 
   mkdir -v $HOME/temp
   cd $HOME/temp
-  wget -i $HOME/dotfiles/.local/themes/url-themes.txt
+  wget -L -i $HOME/dotfiles/.local/themes/url-themes.txt
   unzip Material-Black-Blueberry_1.9.1.zip
   unzip Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
