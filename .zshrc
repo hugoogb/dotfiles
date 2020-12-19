@@ -31,12 +31,6 @@ cd $HOME
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Add .local/bin to path
-export PATH="$PATH:$HOME/.local/bin"
-
-# Add cargo to path
-export PATH="$PATH:$HOME/.cargo/bin"
-
 # starship config file path
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
