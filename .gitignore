@@ -1,0 +1,14 @@
+/*
+!.gitignore
+!.gitmodules
+!README.md
+
+!.config
+!.local
+!.bashrc
+!.zshrc
+!.xprofile
+!.gtkrc-2.0
+!.ssh
+!bootstrap.sh
+!scripts

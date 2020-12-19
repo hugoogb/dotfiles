@@ -1,0 +1,26 @@
+# Env vars
+export PATH=$HOME/.local/bin:$PATH
+
+# Screens
+hdmi=`xrandr | grep ' connected' | grep 'HDMI' | awk '{print $1}'`
+
+if [ "$hdmi" = "HDMI-1" ]; then
+  xrandr --output eDP-1 --primary --mode 1920x1080 --pos 666x1440 --rotate normal --output HDMI-1 --mode 3440x1440 --pos 0x0 --rotate normal --output DP-1 --off &
+else
+  xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1 --off --output DP-1 --off &
+fi
+
+# Composer
+picom &
+# Network
+nm-applet &
+# Keyboard Layout
+setxkbmap es &
+# Bluetooth
+blueman-applet &
+# Automount Devices
+udiskie -t &
+
+# Wallpaper
+#nitrogen --restore &
+feh --bg-scale $HOME/dotfiles/wallpapers/wallhaven-498e2w.png &
