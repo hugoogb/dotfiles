@@ -74,6 +74,7 @@ unzip
 upower
 vlc
 volumeicon
+wget
 xcb-util-cursor
 xdotool
 xf86-video-vesa
