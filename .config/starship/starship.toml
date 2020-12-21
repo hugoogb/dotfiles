@@ -21,7 +21,7 @@ format = '[\[$symbol$status\]]($style) '
 disabled = false
 
 [aws]
-symbol = "  "
+symbol = " "
 
 [battery]
 full_symbol = " "
@@ -29,68 +29,68 @@ charging_symbol = " "
 discharging_symbol = " "
 
 [conda]
-symbol = "  "
+symbol = " "
 
 [dart]
-symbol = "  "
+symbol = " "
 
 [docker]
-symbol = "  "
+symbol = " "
 
 [elixir]
-symbol = "  "
+symbol = " "
 
 [elm]
-symbol = "  "
+symbol = " "
 
 [git_branch]
-symbol = "  "
+symbol = " "
 
 [golang]
-symbol = "  "
+symbol = " "
 
 [haskell]
-symbol = "  "
+symbol = " "
 
 [hg_branch]
-symbol = "  "
+symbol = " "
 
 [java]
-symbol = "  "
+symbol = " "
 
 [julia]
-symbol = "  "
+symbol = " "
 
 [memory_usage]
-symbol = "  "
+symbol = " "
 
 [nim]
-symbol = "  "
+symbol = " "
 
 [nix_shell]
-symbol = "  "
+symbol = " "
 
 [nodejs]
-symbol = "  "
+symbol = " "
 
 [package]
-symbol = "  "
+symbol = " "
 
 [perl]
-symbol = "  "
+symbol = " "
 
 [php]
-symbol = "  "
+symbol = " "
 
 [python]
-symbol = "  "
+symbol = " "
 
 [ruby]
-symbol = "  "
+symbol = " "
 
 [rust]
-symbol = "  "
+symbol = " "
 
 [swift]
-symbol = "ﯣ  "
+symbol = "ﯣ "
 
