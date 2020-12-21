@@ -91,6 +91,9 @@ lightdm_setup() {
 qtile_setup() {
   echo "${PURPLE}Installing qtile...${RESTORE}"
 
+  # needed to show wifi widget
+  pip install psutil
+
   rm -rf $HOME/.config/qtile
   ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile
 }

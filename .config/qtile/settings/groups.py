@@ -10,15 +10,15 @@ from settings.keys import mod, keys
 
 
 # Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
-# Icons: 
-# nf-fa-firefox, 
-# nf-fae-python, 
-# nf-dev-terminal, 
-# nf-fa-code, 
-# nf-seti-config, 
-# nf-mdi-folder, 
-# nf-mdi-image, 
-# nf-fa-video_camera, 
+# Icons:
+# nf-fa-firefox,
+# nf-fae-python,
+# nf-dev-terminal,
+# nf-fa-code,
+# nf-seti-config,
+# nf-mdi-folder,
+# nf-mdi-image,
+# nf-fa-video_camera,
 # nf-mdi-layers
 
 groups = [Group(i) for i in [

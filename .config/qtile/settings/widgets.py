@@ -19,7 +19,7 @@ icon = lambda fg='text', bg='dark', fontsize=16, text="?": widget.TextBox(
 
 powerline = lambda fg="light", bg="dark": widget.TextBox(
    **base(fg, bg),
-    text="", # Icon: nf-oct-triangle_left
+    text="",  # Icon: nf-oct-triangle_left
     fontsize=37,
     padding=-2
 )
@@ -59,15 +59,15 @@ primary_widgets = [
 
     powerline('color4', 'dark'),
 
-    icon(bg="color4", text=' '), # Icon: nf-fa-download
-    
+    icon(bg="color4", text=' '),  # Icon: nf-fa-download
+
     widget.Pacman(**base(bg='color4'), update_interval=1800),
 
     powerline('color3', 'color4'),
 
     icon(bg="color3", text=' '),  # Icon: nf-fa-feed
-    
-    widget.Net(**base(bg='color3'), interface='wlp2s0'),
+
+    widget.Net(**base(bg='color3'), interface='wlp1s0'),
 
     powerline('color2', 'color3'),
 
@@ -77,7 +77,7 @@ primary_widgets = [
 
     powerline('color1', 'color2'),
 
-    icon(bg="color1", fontsize=17, text=' '), # Icon: nf-mdi-calendar_clock
+    icon(bg="color1", fontsize=17, text=' '),  # Icon: nf-mdi-calendar_clock
 
     widget.Clock(**base(bg='color1'), format='%d/%m/%Y - %H:%M '),
 
