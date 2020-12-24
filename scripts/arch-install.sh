@@ -106,6 +106,7 @@ rofi_setup() {
   git clone https://github.com/davatorium/rofi-themes.git
   sudo cp -fv rofi-themes/User\ Themes/onedark.rasi /usr/share/rofi/themes
   cd $ACTUAL_DIR
+  rm -rf $HOME/rofi-themes
 
   sudo cp -fv $HOME/dotfiles/.local/themes/onedark.rasi /usr/share/rofi/themes
 
