@@ -128,12 +128,15 @@ ranger_setup() {
 alacritty_setup() {
   echo "${PURPLE}Setting up alacritty...${RESTORE}"
 
-  rm -rf $HOME/.config/alacritty
-  ln -sv $HOME/dotfiles/.config/alacritty $HOME/.config/alacritty
+  rm -rf $HOME/.config/alacritty/themes
+  ln -sv $HOME/dotfiles/.config/alacritty/themes $HOME/.config/alacritty/themes
+  rm -rf $HOME/.config/alacritty/alacritty.yml
+  ln -sv $HOME/dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+  rm -rf $HOME/.config/alacritty/fonts.yaml
+  ln -sv $HOME/dotfiles/.config/alacritty/fonts.yaml $HOME/.config/alacritty/fonts.yml
 
-  mkdir -pv $HOME/.local/bin
-  ln -sv $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
-  chmod 755 $HOME/.config/alacritty/pycritty/src/main.py
+  # Pycritty
+  curl -sL "https://raw.githubusercontent.com/antoniosarosi/pycritty/master/install.sh" | bash -s [fonts]
 }
 
 # Openbox setup
