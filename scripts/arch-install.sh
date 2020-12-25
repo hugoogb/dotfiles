@@ -132,10 +132,15 @@ alacritty_setup() {
   mkdir -p $HOME/.config/alacritty
   ln -sv $HOME/dotfiles/.config/alacritty/alacritty.yaml $HOME/.config/alacritty/alacritty.yaml
   ln -sv $HOME/dotfiles/.config/alacritty/fonts.yaml $HOME/.config/alacritty/fonts.yaml
-  cp -fv $HOME/dotfiles/.config/themes $HOME/.config/alacritty/themes
+  ln -sv $HOME/dotfiles/.config/alacritty/themes $HOME/.config/alacritty/themes
 
   # Pycritty
-  curl -sL "https://raw.githubusercontent.com/antoniosarosi/pycritty/master/install.sh" | bash -s [fonts]
+  # curl -sL "https://raw.githubusercontent.com/antoniosarosi/pycritty/master/install.sh" | bash -s [fonts]
+  cd $HOME/.config/alacritty
+  git clone https://github.com/antoniosarosi/pycritty
+  ln -sf $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
+  chmod 755 pycritty/src/main.py
+  cd $ACTUAL_DIR
 }
 
 # Openbox setup
