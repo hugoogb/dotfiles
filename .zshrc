@@ -167,7 +167,7 @@ alias update="sudo apt update"
 alias install="sudo apt install"
 alias remove="sudo apt remove --purge"
 
-alias python="python3"
+# alias python="python3"
 
 # Custom aliases
 alias show="tree ."
