@@ -4,8 +4,6 @@
 
 DOTDIR="$HOME/dotfiles"
 
-echo
-
 # Dotfiles update
 update_dotfiles() {
   ACTUAL_DIR=`pwd`
@@ -37,5 +35,3 @@ main() {
 }
 
 main
-
-echo

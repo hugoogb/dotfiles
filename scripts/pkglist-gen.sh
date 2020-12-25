@@ -3,8 +3,6 @@
 . $HOME/dotfiles/scripts/colors.sh
 . $HOME/dotfiles/scripts/distro-detect.sh
 
-echo
-
 pacman_pkglist() {
   echo "${PURPLE}Generating ${ARCH_LINUX} package list...${RESTORE}"
 
@@ -42,5 +40,3 @@ main() {
 }
 
 main
-
-echo
