@@ -129,7 +129,10 @@ alacritty_setup() {
   echo "${PURPLE}Setting up alacritty...${RESTORE}"
 
   rm -rf $HOME/.config/alacritty
-  ln -sv $HOME/dotfiles/.config/alacritty $HOME/.config/alacritty
+  mkdir -p $HoME/.config/alacritty
+  ln -sv $HOME/dotfiles/.config/alacritty/alacritty.yaml $HOME/.config/alacritty/alacritty.yaml
+  ln -sv $HOME/dotfiles/.config/alacritty/fonts.yaml $HOME/.config/alacritty/fonts.yaml
+  cp -fv $HOME/dotfiles/.config/themes $HOME/.config/alacritty/themes
 
   # Pycritty
   curl -sL "https://raw.githubusercontent.com/antoniosarosi/pycritty/master/install.sh" | bash -s [fonts]
