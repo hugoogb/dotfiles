@@ -44,7 +44,7 @@ yay_install() {
 
   # pacman -Qqem > yay-pkglist.txt used to generate the file with all AUR packages installed
   # Install all pkg of the list
-  yay -S --needed --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/scripts/yay-pkglist.txt
+  yay -S --needed --noconfirm --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/scripts/yay-pkglist.txt
 
   sudo systemctl enable bluetooth-autoconnect
 }
@@ -94,7 +94,7 @@ qtile_setup() {
   echo "${PURPLE}Installing qtile...${RESTORE}"
 
   # needed to show wifi widget
-  pip install psutil
+  sudo pip install psutil
 
   rm -rf $HOME/.config/qtile
   ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile

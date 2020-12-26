@@ -12,8 +12,8 @@ lsp_install() {
 
   # Python lang setup
   sudo pip install jedi
-  pip install 'python-language-server[all]'
-  pip install -U setuptools
+  sudo pip install 'python-language-server[all]'
+  sudo pip install -U setuptools
 
   # Rust lang setup
   curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -21,7 +21,7 @@ lsp_install() {
   chmod +x ~/.local/bin/rust-analyzer
 
   # CMake setup
-  pip install cmake-language-server
+  sudo pip install cmake-language-server
 
   # npm i -g bash-language-server
   # npm i -g vscode-css-languageserver-bin
