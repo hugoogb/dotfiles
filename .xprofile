@@ -13,6 +13,8 @@ bluetooth-autoconnect -d &
 blueman-applet &
 # Automount Devices
 udiskie -t &
+# Overlay Bar
+xob-pulse-py | xob -s main &
 
 # Wallpaper
 #nitrogen --restore &
