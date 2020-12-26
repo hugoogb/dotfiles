@@ -10,7 +10,7 @@ arch_install() {
 
   # pacman -Qqen > pacman-pkglist.txt used to generate the file with all packages
   # Install all pkg of the list
-  sudo pacman -S --needed - < $HOME/dotfiles/scripts/pacman-pkglist.txt
+  sudo pacman -S --needed --noconfirm - < $HOME/dotfiles/scripts/pacman-pkglist.txt
 
   # lightdm
   sudo systemctl enable lightdm
@@ -44,7 +44,7 @@ yay_install() {
 
   # pacman -Qqem > yay-pkglist.txt used to generate the file with all AUR packages installed
   # Install all pkg of the list
-  yay -S --needed - < $HOME/dotfiles/scripts/yay-pkglist.txt
+  yay -S --needed --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/scripts/yay-pkglist.txt
 
   sudo systemctl enable bluetooth-autoconnect
 }
