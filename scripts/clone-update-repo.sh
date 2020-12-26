@@ -2,17 +2,17 @@
 
 . $HOME/dotfiles/scripts/colors.sh
 
+ACTUAL_DIR=`pwd`
 DOTDIR="$HOME/dotfiles"
 
 # Dotfiles update
 update_dotfiles() {
-  ACTUAL_DIR=`pwd`
   cd $DOTDIR
   git pull origin master
   cd $ACTUAL_DIR
 }
 
-clone_dotfiles() {
+clone_dotfiles() {  
   if [ -d $DOTDIR ]
   then
     echo "${YELLOW}WARNING: dotfiles dir already exists...${RESTORE}"
@@ -22,6 +22,10 @@ clone_dotfiles() {
     echo "${PURPLE}Cloning dotfiles...${RESTORE}"
     git clone https://github.com/hugoogb/dotfiles.git $DOTDIR
   fi
+  
+  cd $DOTDIR
+  git config --global pull.rebase false
+  cd $ACTUAL_DIR
 }
 
 # ALLDONE Message
