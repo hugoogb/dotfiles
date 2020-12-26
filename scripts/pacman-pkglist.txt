@@ -22,6 +22,7 @@ geeqie
 git
 grub
 gvfs
+kvantum-qt5
 libmtp
 lightdm
 lightdm-gtk-greeter
