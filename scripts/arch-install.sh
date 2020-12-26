@@ -79,6 +79,9 @@ arch_setup(){
   rm -rf $HOME/.config/gtk-3.0
   mkdir -pv $HOME/.config/gtk-3.0
   ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
+  
+  # qt theme
+  echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
 }
 
 # lightdm setup
