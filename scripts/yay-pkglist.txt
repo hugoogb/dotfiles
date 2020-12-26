@@ -7,4 +7,5 @@ nerd-fonts-ubuntu-mono
 simple-mtpfs
 visual-studio-code-bin
 vlc-arc-dark-git
+xob
 yay-git
