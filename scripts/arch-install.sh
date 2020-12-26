@@ -45,6 +45,8 @@ yay_install() {
   # pacman -Qqem > yay-pkglist.txt used to generate the file with all AUR packages installed
   # Install all pkg of the list
   yay -S --needed - < $HOME/dotfiles/scripts/yay-pkglist.txt
+
+  sudo systemctl enable bluetooth-autoconnect
 }
 
 arch_setup(){
