@@ -8,12 +8,12 @@ lsp_install() {
 
   # Neovim providers
   npm install -g neovim
-  python -m pip install --user --upgrade pynvim
+  python3 -m pip install --user --upgrade pynvim
 
   # Python lang setup
-  sudo pip install jedi
-  pip install 'python-language-server[all]'
-  pip install -U setuptools
+  pip install --user jedi
+  pip install --user 'python-language-server[all]'
+  pip install --user -U setuptools
 
   # Rust lang setup
   curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
@@ -21,7 +21,7 @@ lsp_install() {
   chmod +x ~/.local/bin/rust-analyzer
 
   # CMake setup
-  pip install cmake-language-server
+  pip install --user cmake-language-server
 
   # npm i -g bash-language-server
   # npm i -g vscode-css-languageserver-bin

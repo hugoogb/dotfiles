@@ -94,7 +94,7 @@ qtile_setup() {
   echo "${PURPLE}Installing qtile...${RESTORE}"
 
   # needed to show wifi widget
-  pip install psutil
+  pip install --user psutil
 
   rm -rf $HOME/.config/qtile
   ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile
