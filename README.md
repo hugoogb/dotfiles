@@ -2,14 +2,6 @@
 
 ## Screenshots
 
-### zsh | tmux
-
-![zsh tmux](images/zsh-tmux.png)
-
-### vim
-
-![vim](images/vim.png)
-
 ## Welcome to my dotfiles !
 
 First of all, I'm using `WSL2 Ubuntu` in Windows 10
@@ -41,6 +33,47 @@ I've trying to customize and configure `.vimrc` & `.zshrc` mostly and I think th
 - **tmux** setup `.tmux.conf` with vim keybindings and Tmux Plugin Manager ([tpm])
 
 ## Install & setup
+
+```sh
+pacman -S networkmanager
+systemctl enable NetworkManager
+```
+
+```sh
+pacman -S grub efibootmgr os-prober
+grub-install --target=x86_64-efi --efi-directory=/boot
+os-prober
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+```sh
+useradd -m username
+passwd username
+usermod -aG wheel,video,audio,storage username
+```
+
+```sh
+pacman -S sudo
+```
+
+```sh
+## Uncomment to allow members of group wheel to execute any command
+# %wheel ALL=(ALL) ALL
+```
+
+```sh
+# Exit out of ISO image, unmount it and remove it
+exit
+umount -R /mnt
+reboot
+```
+
+```sh
+# List all available networks
+nmcli device wifi list
+# Connect to your network
+nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
+```
 
 **- 1.** Install `git` and Clone the repository
 
