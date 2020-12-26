@@ -13,7 +13,7 @@ lsp_install() {
   # Python lang setup
   sudo pip install jedi
   pip install 'python-language-server[all]'
-  sudo pip install -U setuptools
+  pip install -U setuptools
 
   # Rust lang setup
   curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
