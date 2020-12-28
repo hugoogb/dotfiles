@@ -34,7 +34,11 @@ I've trying to customize and configure `.vimrc` & `.zshrc` mostly and I think th
 
 ## Install & setup
 
-### Dual boot Arch Linux & Windows: https://gist.github.com/ppartarr/175aa0c3416daf3baacde17f442f80e1
+Official install guide: https://wiki.archlinux.org/index.php/installation_guide
+
+### Dual boot Arch Linux & Windows: 
+https://www.youtube.com/watch?v=C3D_qzw94v8
+https://gist.github.com/ppartarr/175aa0c3416daf3baacde17f442f80e1
 
 ```sh
 pacman -S networkmanager
