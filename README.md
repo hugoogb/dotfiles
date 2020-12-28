@@ -62,6 +62,7 @@ usermod -aG wheel,video,audio,storage username
 pacman -S sudo
 ```
 
+Edit /etc/sudoers with nano or vim by uncommenting this line:
 ```sh
 ## Uncomment to allow members of group wheel to execute any command
 # %wheel ALL=(ALL) ALL
