@@ -1,23 +1,27 @@
 # dotfiles @hugoogb
 
+Screenshots go here
+
 # Table of contents
 
-- [Keyboard layout](###keyboard-layout)
+- [Install & setup](#install-&-setup)
+  - [Keyboard layout](#keyboard-layout)
+  - [Verify connection](#verify-connection)
 
 # Install & setup
 
-## Dual boot Arch Linux & Windows
+[Official arch install guide](https://wiki.archlinux.org/index.php/installation_guide)
 
-[Official install guide](https://wiki.archlinux.org/index.php/installation_guide)
+# Dual boot Arch Linux & Windows
 
-### Keyboard layout
+# Keyboard layout
 
 ```sh
 # Avaliable layouts: ls /usr/share/kbd/keymaps/**/*.map.gz
 loadkeys es # Spanish for example
 ```
 
-### Verify connection
+# Verify connection
 
 ```sh
 ping google.com
