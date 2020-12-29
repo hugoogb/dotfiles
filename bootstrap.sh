@@ -1,9 +1,5 @@
 #!/bin/bash
 
-DOTDIR="$HOME/dotfiles"
-
-git clone https://github.com/hugoogb/dotfiles.git $DOTDIR
-
 . $HOME/dotfiles/scripts/colors.sh
 
 echo "${B_L_CYAN}Welcome to @hugoogb dotfiles!!!${RESTORE}"
