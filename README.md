@@ -10,7 +10,7 @@
 
 [Official install guide](https://wiki.archlinux.org/index.php/installation_guide)
 
-###Keyboard layout
+### Keyboard layout
 
 ```sh
 # Avaliable layouts: ls /usr/share/kbd/keymaps/**/*.map.gz
