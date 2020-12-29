@@ -8,6 +8,7 @@ DOTDIR="$HOME/dotfiles"
 # Dotfiles update
 update_dotfiles() {
   cd $DOTDIR
+  git config --global pull.rebase false
   git pull origin master
   cd $ACTUAL_DIR
 }
@@ -22,10 +23,6 @@ clone_dotfiles() {
     echo "${PURPLE}Cloning dotfiles...${RESTORE}"
     git clone https://github.com/hugoogb/dotfiles.git $DOTDIR
   fi
-  
-  cd $DOTDIR
-  git config --global pull.rebase false
-  cd $ACTUAL_DIR
 }
 
 # ALLDONE Message
