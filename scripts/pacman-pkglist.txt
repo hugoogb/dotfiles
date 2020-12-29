@@ -22,6 +22,7 @@ geeqie
 git
 grub
 gvfs
+htop
 kvantum-qt5
 libmtp
 lightdm
