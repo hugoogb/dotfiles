@@ -8,11 +8,25 @@ Screenshots go here
   - [Keyboard layout](#keyboard-layout)
   - [Verify connection](#verify-connection)
   - [Update the system clock](#update-the-system-clock)
-  - [IMPORTANT Disk partition (dual boot Windows 10)](#important-disk-partition-dual-boot-windows-10)
+  - [Disk partition](#important-disk-partition-dual-boot-windows-10)
   - [Format the partitions](#format-the-partitions)
   - [Mount the partitions](#mount-the-partitions)
   - [Install essential packages](#install-essential-packages)
-  - []
+  - [Generate fstab](#generate-fstab)
+  - [Chroot](#chroot)
+  - [Time zone](#time-zone)
+  - [Localization](#localization)
+  - [Network connection](#network-connection)
+  - [Add root password](#add-root-password)
+  - [Add new user](#add-new-user)
+  - [GRUB install](#grub-install)
+  - [Network manager](#network-manager)
+  - [Sudo](#sudo)
+  - [Exit, unmount and reboot](#exit-unmount-and-reboot)
+  - [Connect to your network](#connect-to-your-network)
+- [Arch linux setup](#arch-linux-setup)
+  - [Install packages needed](#install-packages-needed)
+  - [Curl command](#curl-command)
 
 # Install & setup
 
