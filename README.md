@@ -309,9 +309,7 @@ sudo pacman -S curl git
 
 # Keybindings
 
-These are common keybindings to all my window managers.
-
-### Windows
+## Windows
 
 | Key                     | Action                           |
 | ----------------------- | -------------------------------- |
@@ -331,7 +329,7 @@ These are common keybindings to all my window managers.
 | **mod + ctrl + r**      | restart wm                       |
 | **mod + ctrl + q**      | quit                             |
 
-### Apps
+## Apps
 
 | Key                 | Action                        |
 | ------------------- | ----------------------------- |
