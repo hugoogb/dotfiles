@@ -16,7 +16,7 @@ lsp_install() {
   python3 -m pip install --user --upgrade pynvim
 
   # Python lang setup
-  sudo pip install jedi
+  pip install jedi
   pip install 'python-language-server[all]'
   pip install -U setuptools
 
