@@ -25,11 +25,6 @@ ubuntu_install() {
   python3 get-pip.py --user
   pip install --user --upgrade pip
   rm -rf get-pip.py
-
-  mkdir ~/.npm-global
-  npm config set prefix '~/.npm-global'
-
-  npm i -g npm
 }
 
 # Installing neovim latest release
