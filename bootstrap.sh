@@ -1,14 +1,14 @@
 #!/bin/bash
 
-. $HOME/dotfiles/scripts/colors.sh
-
 DOTDIR="$HOME/dotfiles"
+
+git clone https://github.com/hugoogb/dotfiles.git $DOTDIR
+
+. $HOME/dotfiles/scripts/colors.sh
 
 echo "${B_L_CYAN}Welcome to @hugoogb dotfiles!!!${RESTORE}"
 
 echo "${B_PURPLE}Starting...${RESTORE}"
-
-git clone https://github.com/hugoogb/dotfiles.git $DOTDIR
 
 . $HOME/dotfiles/scripts/clone-update-repo.sh
 . $HOME/dotfiles/scripts/install-setup.sh
