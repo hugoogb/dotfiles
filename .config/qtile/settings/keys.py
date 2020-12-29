@@ -64,10 +64,6 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Terminal
     ([mod], "Return", lazy.spawn("alacritty")),
 
-    # Redshift
-    ([mod], "r", lazy.spawn("redshift -O 2400")),
-    ([mod, "shift"], "r", lazy.spawn("redshift -x")),
-
     # Screenshot
     ([mod], "s", lazy.spawn("scrot")),
 
@@ -75,13 +71,13 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Volume
     ([], "XF86AudioLowerVolume", lazy.spawn(
-        "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        "pamixer --decrease 5"
     )),
     ([], "XF86AudioRaiseVolume", lazy.spawn(
-        "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        "pamixer --increase 5"
     )),
     ([], "XF86AudioMute", lazy.spawn(
-        "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        "pamixer --toggle-mute"
     )),
 
     # Brightness
