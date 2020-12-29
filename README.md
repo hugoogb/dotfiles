@@ -211,8 +211,8 @@ nano /etc/hosts
 
 # Add this
 127.0.0.1  localhost
-::1           localhost
-127.0.1.1	 myhostname.localdomain	myhostname # myhostname is your hostname in /etc/hostname
+::1        localhost
+127.0.1.1  myhostname.localdomain	myhostname # myhostname is your hostname in /etc/hostname
 ```
 
 ### Add root password
