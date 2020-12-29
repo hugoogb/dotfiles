@@ -1,79 +1,262 @@
-# (DEPRECATED README) dotfiles @hugoogb
+# dotfiles @hugoogb
 
-## Screenshots
+# Table of contents
 
-## Welcome to my dotfiles !
+- [Keyboard layout](###keyboard-layout)
 
-First of all, I'm using `WSL2 Ubuntu` in Windows 10
+# Install & setup
 
-Right now the terminal that I'm using is [alacritty] with the `gruvbox-dark` theme
+## Dual boot Arch Linux & Windows
 
-- See alacritty config [here]
+[Official install guide](https://wiki.archlinux.org/index.php/installation_guide)
 
-I'm starting in the world of dotfiles so don't be mad at me 😅
+### Keyboard layout
 
-I've trying to customize and configure `.vimrc` & `.zshrc` mostly and I think they are pretty good right now, at least they work 😂
+```sh
+# Avaliable layouts: ls /usr/share/kbd/keymaps/**/*.map.gz
+loadkeys es # Spanish for example
+```
 
-### Features
+### Verify connection
 
-- My dotfiles include the installation of: `htop neofetch neovim curl git zsh oh-my-zsh fzf nodejs npm yarn tree tmux`
+```sh
+ping google.com
+```
 
-- **zsh** theme `starship` you can see it in their website: [starship]
+### Update the system clock
 
-- **zsh** plugins `(git jump colored-man-pages safe-paste zsh-interactive-cd zsh-syntax-highlighting k)` | jump plugin config: [documentation]
+```sh
+timedatectl set-ntp true
+```
 
-- some **zsh** aliases: see them on `.zshrc`
+### **IMPORTANT** Disk partition (dual boot Windows 10)
 
-- **nvim** theme `gruvbox-dark`
+```sh
+# Find out the name of your drive (sometimes /dev/sda - I'll be using /dev/nvme0n1)
+fdisk -l
 
-- **nvim** plugins `(indentLine nerdtree nerdtree-syntax-highlight nerdtree-git-plugin vim-devicons fzf vim-tmux-navigator coc vim-airline vim-wakatime undotree vimspector)`
+# You should see something like that
+Device                   Start           End     Sectors     Size    Type
+/dev/nvme0n1p1            2048        206847      204800     100M    EFI System
+/dev/nvme0n1p2          206848        239615       32768      16M    Microsoft reserved
+/dev/nvme0n1p3          239616     579717593   579477978   276.3G    Microsoft basic data
+/dev/nvme0n1p4       999151616    1000212479     1060864     518M    Windows Recovery environment
 
-- **tmux** theme `gruvbox-dark`
+fdisk /dev/nvme0n1
 
-- **tmux** setup `.tmux.conf` with vim keybindings and Tmux Plugin Manager ([tpm])
+# Boot partition
+n                    # New partition
+<Enter>              # Default partition number
+<Enter>              # Default starting sector
++512MB               # Enter the size you want your boot sector to be
+t                    # Change the partition type
+<Enter>              # Use default partition
+1                    # Change partition type to EFI System
 
-## Install & setup
+# Swap partition
+n                    # New partition
+<Enter>              # Default partition number
+<Enter>              # Default starting sector
++1.5G                # Enter the size you want your swap to be
+t                    # Change the partition type
+<Enter>              # Use default partition
+19                   # Change partition type to Linux swap
 
-Official install guide: https://wiki.archlinux.org/index.php/installation_guide
+# Root partition
+n                    # New partition
+<Enter>              # Default partition number
+<Enter>              # Default starting sector
+<Enter>              # Fill the rest of the disk
 
-### Dual boot Arch Linux & Windows: 
-https://www.youtube.com/watch?v=C3D_qzw94v8
-https://gist.github.com/ppartarr/175aa0c3416daf3baacde17f442f80e1
+# Write partitions
+w                    # Write the changes to disk & exit
+
+# Look at the partitions
+fdisk -l
+
+# Now you should have something like that
+Device                   Start           End     Sectors     Size    Type
+/dev/nvme0n1p1            2048        206847      204800     100M    EFI System
+/dev/nvme0n1p2          206848        239615       32768      16M    Microsoft reserved
+/dev/nvme0n1p3          239616     579717593   579477978   276.3G    Microsoft basic data
+/dev/nvme0n1p4       999151616    1000212479     1060864     518M    Windows Recovery environment
+/dev/nvme0n1p5       579719168     580767743     1048576     512M    EFI System
+/dev/nvme0n1p6       580767744     583913471     3145728     1.5G    Linux swap
+/dev/nvme0n1p7       583913472     999151615   415238144     198G    Linux filesystem
+```
+
+### Format the partitions
+
+```sh
+# Boot partition
+mkfs.fat -F32 /dev/nvme0n1p5 # Your boot partition
+
+# Swap partition
+mkswap /dev/nvme0n1p6 # Your swap partition
+
+# Root partition
+mkfs.ext4 /dev/nvme0n1p7 # Your root partition
+```
+
+### Mount the partitions
+
+```sh
+# Swap partition
+swapon /dev/nvme0n1p6 # Your swap partition
+
+# Root partition
+mount /dev/nvme0n1p7 /mnt # Your root partition
+
+# Boot partition
+mkdir /mnt/boot
+mount /dev/nvme0n1p5 /mnt/boot # Your boot partition
+```
+
+Look at mounted devices: `df`
+
+### Install essential packages
+
+```sh
+pacstrap /mnt base linux linux-firmware nano
+```
+
+**_8._** Generate fstab
+
+```sh
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+Check the resulting file, edit in case of errors
+
+```sh
+cat /mnt/etc/fstab
+```
+
+**_9._** Chroot
+
+```sh
+arch-chroot /mnt
+```
+
+**_10._** Time zone
+
+```sh
+# ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Madrid /etc/localtime # Spain for example
+hwclock --systohc
+```
+
+**_11._** Localization
+
+Edit **/etc/locale.gen** and uncomment needed locales such as `en_US.UTF-8 UTF-8`.
+Generate the locales:
+
+```sh
+locale-gen
+```
+
+Set the LANG variable
+
+```sh
+echo "LANG=en_US.UTF-8" > /etc/locale.conf # English for example
+```
+
+Set the keyboard layout
+
+```sh
+echo "KEYMAP=es" > /etc/vconsole.conf # Spanish for example
+```
+
+**_12._** Network connection
+
+Set your hostname
+
+```sh
+echo "asus-laptop" > /etc/hostname # Example
+```
+
+Edit **/etc/hosts** and add matching entries
+
+```sh
+nano /etc/hosts
+
+# Add this
+127.0.0.1	localhost
+::1		    localhost
+127.0.1.1	myhostname.localdomain	myhostname # Where myhostname equals to your hostname in /etc/hostname
+```
+
+**_13._** Add root password
+
+```sh
+passwd
+```
+
+**_14._** Add new user
+
+```sh
+useradd -m username # Username for the new user
+passwd username # Password for the user created
+usermod -aG power,wheel,video,audio,storage username # Give the user permissions
+```
+
+Edit **/etc/sudoers** and uncomment this line:
+
+```sh
+## Uncomment to allow members of group wheel to execute any command
+# %wheel ALL=(ALL) ALL --> %wheel ALL=(ALL) ALL
+```
+
+**_15._** GRUB install
+
+```sh
+# Install needed packages
+pacman -S grub efibootmgr os-prober
+
+# Grub install
+os-prober
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+
+# Mount Windows EFI System
+fdisk -l # Look at the partitions
+mkdir /mnt2
+mount /dev/nvme0n1p1 /mnt2 # Mount your Windows EFI System partition
+
+# Grub setup
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+The command output should be something like:
+
+```sh
+Found linux image: ...
+Found initrd image: ...
+Found fallback initrd image(s) in ...
+Found Windows Boot Manager on ...
+```
+
+**_16._** Network manager
 
 ```sh
 pacman -S networkmanager
 systemctl enable NetworkManager
 ```
 
-```sh
-pacman -S grub efibootmgr os-prober
-grub-install --target=x86_64-efi --efi-directory=/boot
-os-prober
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-
-```sh
-useradd -m username
-passwd username
-usermod -aG wheel,video,audio,storage username
-```
+**_17._** Sudo
 
 ```sh
 pacman -S sudo
 ```
 
-Edit /etc/sudoers with nano or vim by uncommenting this line:
-```sh
-## Uncomment to allow members of group wheel to execute any command
-# %wheel ALL=(ALL) ALL
-```
+**_18._** Exit, unmount and reboot
 
 ```sh
-# Exit out of ISO image, unmount it and remove it
 exit
 umount -R /mnt
 reboot
 ```
+
+**_19._** After rebooting, connect to your network
 
 ```sh
 # List all available networks
@@ -82,32 +265,18 @@ nmcli device wifi list
 nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 ```
 
-**- 1.** Install `git` and Clone the repository
+### Arch linux setup
+
+**_1._** Install `curl` and `git`
 
 ```sh
-sudo apt install git
+sudo apt install curl git
 ```
+
+**_2._** Execute the curl command
 
 ```sh
-git clone https://github.com/hugoogb/dotfiles.git
+
 ```
-
-**- 2.** Execute `bootstrap.sh`
-
-```sh
-sh ~/dotfiles/bootstrap.sh
-```
-
-**- 3.** Follow the installation and setup scripts
-
-Pick the options that you want and thats all, everythings is properly explained with terminal messages
 
 ### You are all done ✅
-
-Everything installs and configs automatically (i hope so) thanks to the scripts
-
-[alacritty]: https://github.com/alacritty/alacritty
-[here]: https://github.com/hugoogb/alacritty
-[documentation]: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jump
-[starship]: https://starship.rs/
-[tpm]: https://github.com/tmux-plugins/tpm
