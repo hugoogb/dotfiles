@@ -81,7 +81,7 @@ link_dotfiles() {
   cp -rfv $HOME/dotfiles/.config/nvim/vim-plug $HOME/.config/nvim/vim-plug
 
   # Link ssh config
-  mkdir -pv $HOME/.ssh
+  mkdir $HOME/.ssh
   rm -rf $HOME/.ssh/config
   ln -sv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
 }
