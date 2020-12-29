@@ -62,6 +62,7 @@ qtile
 ranger
 ripgrep
 rofi
+scrot
 sudo
 texinfo
 the_silver_searcher
