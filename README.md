@@ -277,13 +277,13 @@ nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 
 ## Arch linux setup
 
-**_1._** Install `curl` and `git`
+### Install packages needed
 
 ```sh
 sudo apt install curl git
 ```
 
-**_2._** Execute the curl command
+### Curl command
 
 ```sh
 
