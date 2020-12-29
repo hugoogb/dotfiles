@@ -6,6 +6,11 @@
 lsp_install() {
   echo "${PURPLE}Installing LSP servers and dependencies...${RESTORE}"
 
+  mkdir ~/.npm-global
+  npm config set prefix '~/.npm-global'
+
+  npm i -g npm
+
   # Neovim providers
   npm install -g neovim
   python3 -m pip install --user --upgrade pynvim
