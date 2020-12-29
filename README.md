@@ -255,7 +255,7 @@ The command output should be something like:
 ```sh
 Found linux image: ...
 Found initrd image: ...
-Found fallback initrd image(s) in ...
+Found fallback initrd image(s) ...
 Found Windows Boot Manager on ...
 ```
 
@@ -294,7 +294,7 @@ nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 ### Install packages needed
 
 ```sh
-sudo apt install curl git
+sudo pacman -S curl git
 ```
 
 ### Curl command
@@ -303,4 +303,37 @@ sudo apt install curl git
 
 ```
 
-### You are all done ✅
+## Keybindings
+
+These are common keybindings to all my window managers.
+
+### Windows
+
+| Key                     | Action                           |
+| ----------------------- | -------------------------------- |
+| **mod + j**             | next window (down)               |
+| **mod + k**             | next window (up)                 |
+| **mod + shift + h**     | decrease master                  |
+| **mod + shift + l**     | increase master                  |
+| **mod + shift + j**     | move window down                 |
+| **mod + shift + k**     | move window up                   |
+| **mod + shift + f**     | toggle floating                  |
+| **mod + tab**           | change layout                    |
+| **mod + [1-9]**         | Switch to workspace N (1-9)      |
+| **mod + shift + [1-9]** | Send Window to workspace N (1-9) |
+| **mod + period**        | Focus next monitor               |
+| **mod + comma**         | Focus previous monitor           |
+| **mod + w**             | kill window                      |
+| **mod + ctrl + r**      | restart wm                       |
+| **mod + ctrl + q**      | quit                             |
+
+### Apps
+
+| Key                 | Action                        |
+| ------------------- | ----------------------------- |
+| **mod + m**         | launch rofi                   |
+| **mod + shift + m** | window nav (rofi)             |
+| **mod + b**         | launch browser (firefox)      |
+| **mod + e**         | launch file explorer (thunar) |
+| **mod + return**    | launch terminal (alacritty)   |
+| **mod + s**         | screenshot (scrot)            |
