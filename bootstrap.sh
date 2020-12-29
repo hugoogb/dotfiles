@@ -2,6 +2,8 @@
 
 . $HOME/dotfiles/scripts/colors.sh
 
+DOTDIR="$HOME/dotfiles"
+
 echo "${B_L_CYAN}Welcome to @hugoogb dotfiles!!!${RESTORE}"
 
 echo "${B_PURPLE}Starting...${RESTORE}"
