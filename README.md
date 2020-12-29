@@ -27,6 +27,9 @@ Screenshots go here
 - [Arch linux setup](#arch-linux-setup)
   - [Install packages needed](#install-packages-needed)
   - [Curl command](#curl-command)
+- [Keybindings](#keybindings)
+  - [Windows](#windows)
+  - [Apps](#apps)
 
 # Install & setup
 
