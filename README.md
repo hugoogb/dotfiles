@@ -4,24 +4,30 @@ Screenshots go here
 
 # Table of contents
 
-- [Install & setup](#install-&-setup)
+- [Install & setup](#install--setup)
   - [Keyboard layout](#keyboard-layout)
   - [Verify connection](#verify-connection)
+  - [Update the system clock](#update-the-system-clock)
+  - [IMPORTANT Disk partition (dual boot Windows 10)](#important-disk-partition-dual-boot-windows-10)
+  - [Format the partitions](#format-the-partitions)
+  - [Mount the partitions](#mount-the-partitions)
+  - [Install essential packages](#install-essential-packages)
+  - []
 
 # Install & setup
 
 [Official arch install guide](https://wiki.archlinux.org/index.php/installation_guide)
 
-# Dual boot Arch Linux & Windows
+## Dual boot Arch Linux & Windows
 
-# Keyboard layout
+### Keyboard layout
 
 ```sh
 # Avaliable layouts: ls /usr/share/kbd/keymaps/**/*.map.gz
 loadkeys es # Spanish for example
 ```
 
-# Verify connection
+### Verify connection
 
 ```sh
 ping google.com
@@ -124,7 +130,7 @@ Look at mounted devices: `df`
 pacstrap /mnt base linux linux-firmware nano
 ```
 
-**_8._** Generate fstab
+### Generate fstab
 
 ```sh
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -136,13 +142,13 @@ Check the resulting file, edit in case of errors
 cat /mnt/etc/fstab
 ```
 
-**_9._** Chroot
+### Chroot
 
 ```sh
 arch-chroot /mnt
 ```
 
-**_10._** Time zone
+### Time zone
 
 ```sh
 # ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
@@ -150,7 +156,7 @@ ln -sf /usr/share/zoneinfo/Europe/Madrid /etc/localtime # Spain for example
 hwclock --systohc
 ```
 
-**_11._** Localization
+### Localization
 
 Edit **/etc/locale.gen** and uncomment needed locales such as `en_US.UTF-8 UTF-8`.
 Generate the locales:
@@ -171,7 +177,7 @@ Set the keyboard layout
 echo "KEYMAP=es" > /etc/vconsole.conf # Spanish for example
 ```
 
-**_12._** Network connection
+### Network connection
 
 Set your hostname
 
@@ -190,13 +196,13 @@ nano /etc/hosts
 127.0.1.1	myhostname.localdomain	myhostname # Where myhostname equals to your hostname in /etc/hostname
 ```
 
-**_13._** Add root password
+### Add root password
 
 ```sh
 passwd
 ```
 
-**_14._** Add new user
+### Add new user
 
 ```sh
 useradd -m username # Username for the new user
@@ -211,7 +217,7 @@ Edit **/etc/sudoers** and uncomment this line:
 # %wheel ALL=(ALL) ALL --> %wheel ALL=(ALL) ALL
 ```
 
-**_15._** GRUB install
+### GRUB install
 
 ```sh
 # Install needed packages
@@ -239,20 +245,20 @@ Found fallback initrd image(s) in ...
 Found Windows Boot Manager on ...
 ```
 
-**_16._** Network manager
+### Network manager
 
 ```sh
 pacman -S networkmanager
 systemctl enable NetworkManager
 ```
 
-**_17._** Sudo
+### Sudo
 
 ```sh
 pacman -S sudo
 ```
 
-**_18._** Exit, unmount and reboot
+### Exit, unmount and reboot
 
 ```sh
 exit
@@ -260,7 +266,7 @@ umount -R /mnt
 reboot
 ```
 
-**_19._** After rebooting, connect to your network
+### Connect to your network
 
 ```sh
 # List all available networks
@@ -269,7 +275,7 @@ nmcli device wifi list
 nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 ```
 
-### Arch linux setup
+## Arch linux setup
 
 **_1._** Install `curl` and `git`
 
