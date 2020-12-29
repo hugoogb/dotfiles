@@ -30,8 +30,6 @@ arch_install() {
 aur_helper() {
   echo "${PURPLE}Installing yay...${RESTORE}"
 
-  # sudo pacman -S base-devel git
-
   git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
   cd $HOME/.yay
   makepkg -si
@@ -46,11 +44,15 @@ yay_install() {
   # Install all pkg of the list
   yay -S --needed --noconfirm --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/scripts/yay-pkglist.txt
 
+  # Bluetooth autoconnect trusted devices
   sudo systemctl enable bluetooth-autoconnect
 }
 
 arch_setup(){
   echo "${PURPLE}Linking .xprofile...${RESTORE}"
+  
+  mkdir -p $HOME/.config
+  mkdir -p $HOME/.local/bin
 
   # .xprofile
   rm $HOME/.xprofile
@@ -58,7 +60,7 @@ arch_setup(){
 
   echo "${PURPLE}Installing material black theme and custom mouse...${RESTORE}"
 
-  mkdir -v $HOME/temp
+  mkdir -p $HOME/temp
   cd $HOME/temp
   wget -L -i $HOME/dotfiles/.local/themes/url-themes.txt
   unzip Material-Black-Blueberry_1.9.1.zip
@@ -77,11 +79,16 @@ arch_setup(){
   ln -sv $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
   # ~/.config/gtk-3.0/settings.ini
   rm -rf $HOME/.config/gtk-3.0
-  mkdir -pv $HOME/.config/gtk-3.0
   ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
   
   # qt theme
   echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
+  
+  # xob
+  rm -rf $HOME/.config/xob
+  ln -sv $HOME/dotfiles/.config/xob $HOME/.config/xob
+  cp -fv $HOME/dotfiles/.local/bin/xob-pulse-py $HOME/.local/bin
+  
 }
 
 # lightdm setup
@@ -97,7 +104,7 @@ qtile_setup() {
   echo "${PURPLE}Installing qtile...${RESTORE}"
 
   # needed to show wifi widget
-  pip install --user psutil
+  pip install psutil
 
   rm -rf $HOME/.config/qtile
   ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile
@@ -140,12 +147,9 @@ alacritty_setup() {
   ln -sv $HOME/dotfiles/.config/alacritty/themes $HOME/.config/alacritty/themes
 
   # Pycritty
-  # curl -sL "https://raw.githubusercontent.com/antoniosarosi/pycritty/master/install.sh" | bash -s [fonts]
-  cd $HOME/.config/alacritty
-  git clone https://github.com/antoniosarosi/pycritty
+  git clone https://github.com/antoniosarosi/pycritty $HOME/.config/alacritty
   ln -sf $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
-  chmod 755 pycritty/src/main.py
-  cd $ACTUAL_DIR
+  chmod 755 $HOME/.config/alacritty/pycritty/src/main.py
 }
 
 # Openbox setup
