@@ -212,7 +212,7 @@ nano /etc/hosts
 # Add this
 127.0.0.1	localhost
 ::1		    localhost
-127.0.1.1	myhostname.localdomain	myhostname # Where myhostname equals to your hostname in /etc/hostname
+127.0.1.1	myhostname.localdomain	myhostname # myhostname is your hostname in /etc/hostname
 ```
 
 ### Add root password
@@ -305,13 +305,13 @@ sudo pacman -S git
 ### Clone repo
 
 ```sh
-git clone https://github.com/hugoogb/dotfiles.git $HOME/dotfiles
+git clone https://github.com/hugoogb/dotfiles.git ~/dotfiles
 ```
 
 ### Bootstrap
 
 ```sh
-. $HOME/dotfiles/bootstrap.sh
+. ~/dotfiles/bootstrap.sh
 ```
 
 # Keybindings
