@@ -26,8 +26,9 @@ Screenshots go here
     - [Exit, unmount and reboot](#exit-unmount-and-reboot)
     - [Connect to your network](#connect-to-your-network)
   - [Arch linux setup](#arch-linux-setup)
-    - [Install packages needed](#install-packages-needed)
-    - [Curl command](#curl-command)
+    - [Install git](#install-git)
+    - [Clone repo](#clone-repo)
+    - [Bootstrap](#bootstrap)
 - [Keybindings](#keybindings)
   - [Windows](#windows)
   - [Apps](#apps)
@@ -295,16 +296,22 @@ nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 
 ## Arch linux setup
 
-### Install packages needed
+### Install git
 
 ```sh
-sudo pacman -S curl git
+sudo pacman -S git
 ```
 
-### Curl command
+### Clone repo
 
 ```sh
+git clone https://github.com/hugoogb/dotfiles.git $HOME/dotfiles
+```
 
+### Bootstrap
+
+```sh
+. $HOME/dotfiles/bootstrap.sh
 ```
 
 # Keybindings
@@ -313,29 +320,29 @@ sudo pacman -S curl git
 
 | Key                     | Action                           |
 | ----------------------- | -------------------------------- |
-| **mod + j**             | next window (down)               |
-| **mod + k**             | next window (up)                 |
-| **mod + shift + h**     | decrease master                  |
-| **mod + shift + l**     | increase master                  |
-| **mod + shift + j**     | move window down                 |
-| **mod + shift + k**     | move window up                   |
-| **mod + shift + f**     | toggle floating                  |
-| **mod + tab**           | change layout                    |
+| **mod + j**             | Next window (down)               |
+| **mod + k**             | Next window (up)                 |
+| **mod + shift + h**     | Decrease master                  |
+| **mod + shift + l**     | Increase master                  |
+| **mod + shift + j**     | Move window down                 |
+| **mod + shift + k**     | Move window up                   |
+| **mod + shift + f**     | Toggle floating                  |
+| **mod + tab**           | Change layout                    |
 | **mod + [1-9]**         | Switch to workspace N (1-9)      |
 | **mod + shift + [1-9]** | Send Window to workspace N (1-9) |
 | **mod + period**        | Focus next monitor               |
 | **mod + comma**         | Focus previous monitor           |
-| **mod + w**             | kill window                      |
-| **mod + ctrl + r**      | restart wm                       |
-| **mod + ctrl + q**      | quit                             |
+| **mod + w**             | Kill window                      |
+| **mod + ctrl + r**      | Restart wm                       |
+| **mod + ctrl + q**      | Quit                             |
 
 ## Apps
 
 | Key                 | Action                        |
 | ------------------- | ----------------------------- |
-| **mod + m**         | launch rofi                   |
-| **mod + shift + m** | window nav (rofi)             |
-| **mod + b**         | launch browser (firefox)      |
-| **mod + e**         | launch file explorer (thunar) |
-| **mod + return**    | launch terminal (alacritty)   |
-| **mod + s**         | screenshot (scrot)            |
+| **mod + m**         | Launch rofi                   |
+| **mod + shift + m** | Window nav (rofi)             |
+| **mod + b**         | Launch browser (firefox)      |
+| **mod + e**         | Launch file explorer (thunar) |
+| **mod + return**    | Launch terminal (alacritty)   |
+| **mod + s**         | Screenshot (scrot)            |
