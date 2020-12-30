@@ -16,8 +16,8 @@ figlet -lt github | lolcat -f
 
 # Start ssh agent
 eval "$(ssh-agent -s)"
-ssh-add $HOME/.ssh/id_rsa_me
-ssh-add $HOME/.ssh/id_rsa_uni
+ssh-add $HOME/.ssh/id_me
+ssh-add $HOME/.ssh/id_uni
 
 clear
 
