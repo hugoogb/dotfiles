@@ -1,3 +1,0 @@
-[submodule ".config/alacritty/pycritty"]
-	path = .config/alacritty/pycritty
-	url = https://github.com/antoniosarosi/pycritty.git
