@@ -135,4 +135,5 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+yarn
 zsh
