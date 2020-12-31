@@ -5,6 +5,7 @@ neovim-nightly-git
 nerd-fonts-fira-code
 nerd-fonts-ubuntu-mono
 simple-mtpfs
+spotify
 visual-studio-code-bin
 vlc-arc-dark-git
 xob
