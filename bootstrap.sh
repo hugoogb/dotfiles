@@ -383,15 +383,20 @@ link_dotfiles() {
   NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/vim-plug/plugins.vim
 
   if [ -e $NEOVIM_PLUGINS_FILE ]; then
-    warn "WARNING: neovim plugins file already exists"
-    info "Using existing neovim plugins file"
+    warn "WARNING: neovim plugins file already exists, using existing file"
   else
     cp -rfv $HOME/dotfiles/.config/nvim/vim-plug $HOME/.config/nvim/vim-plug
   fi
 
-  # Link ssh config
-  mkdir $HOME/.ssh
-  ln -sv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
+  # ssh config
+  SSH_CONFIG_FILE=$HOME/.ssh/config
+
+  if [ -e $NEOVIM_PLUGINS_FILE ]; then
+    warn "WARNING: ssh config file already exists, using existing file"
+  else
+    mkdir $HOME/.ssh
+    cp -uv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
+  fi
 }
 
 general_install() {
@@ -436,5 +441,6 @@ main() {
 
 main
 
+echo
 ok "Dotfiles installed and setup done!!!"
 warn "WARNING: don't forget to reboot in order to get everything working properly"
