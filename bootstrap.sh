@@ -50,7 +50,7 @@ DOTDIR="$HOME/dotfiles"
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
 
-if ! program_exists "git"; then
+if !program_exists "git"; then
   error "Git is not installed"
 fi
 
