@@ -108,10 +108,15 @@ arch_pkg_install() {
 aur_helper() {
   info "Installing AUR helper (yay)..."
 
-  git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
-  cd $HOME/.yay
-  makepkg -si
-  cd $ACTUAL_DIR
+  if ! program_exists "git"; then
+    git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
+    cd $HOME/.yay
+    makepkg -si
+    cd $ACTUAL_DIR
+    rm -rf $HOME/.yay
+  else
+    warn "WARNING: yay already installed"
+  fi
 }
 
 # Install all AUR packages
