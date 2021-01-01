@@ -19,10 +19,10 @@ Screenshots go here
     - [Localization](#localization)
     - [Network connection](#network-connection)
     - [Add root password](#add-root-password)
+    - [Sudo](#sudo)
     - [Add new user](#add-new-user)
     - [GRUB install](#grub-install)
     - [Network manager](#network-manager)
-    - [Sudo](#sudo)
     - [Exit, unmount and reboot](#exit-unmount-and-reboot)
     - [Connect to your network](#connect-to-your-network)
   - [Arch linux setup](#arch-linux-setup)
@@ -221,6 +221,12 @@ nano /etc/hosts
 passwd
 ```
 
+### Sudo
+
+```sh
+pacman -S sudo
+```
+
 ### Add new user
 
 ```sh
@@ -244,8 +250,12 @@ pacman -S grub efibootmgr os-prober
 
 # Grub install
 os-prober
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+```
 
+If it fails you could try: `grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --no-nvram --removable`
+
+```sh
 # Mount Windows EFI System
 fdisk -l # Look at the partitions
 mkdir /mnt2
@@ -269,12 +279,6 @@ Found Windows Boot Manager on ...
 ```sh
 pacman -S networkmanager
 systemctl enable NetworkManager
-```
-
-### Sudo
-
-```sh
-pacman -S sudo
 ```
 
 ### Exit, unmount and reboot
