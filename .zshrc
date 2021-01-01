@@ -1,17 +1,5 @@
 clear
 
-. $HOME/dotfiles/scripts/distro-detect.sh
-
-if [[ "$DISTRO" == "$UBUNTU" ]]
-then
-  # AutoOpen TMUX
-  if which tmux 2>&1 >/dev/null; then
-    if [ $TERM != "screen-256color" ] && [  $TERM != "screen" ]; then
-      tmux attach -t dev || tmux new -s dev; exit
-    fi
-  fi
-fi
-
 figlet -lt github | lolcat -f
 
 # Start ssh agent
@@ -116,13 +104,6 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 # export FZF_DEFAULT_COMMAND='find .'
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 
-if [[ "$DISTRO" == "$UBUNTU" ]]
-then
-  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-    # --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
-    # --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54'
-fi
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -155,17 +136,10 @@ export EDITOR='nvim'
 alias reload="source $HOME/.zshrc"
 
 # Execute dotfiles bootstrap
-alias dotscript=". $HOME/dotfiles/bootstrap.sh"
-
-# Generate pacman pkg list and AUR pkg list
-alias pkglist=". $HOME/dotfiles/scripts/pkglist-gen.sh"
+alias dotstrap=". $HOME/dotfiles/bootstrap.sh"
 
 # System aliases
 alias distro="cat /etc/*-release"
-alias upgrade="sudo apt upgrade"
-alias update="sudo apt update"
-alias install="sudo apt install"
-alias remove="sudo apt remove --purge"
 
 # alias python="python3"
 
@@ -180,6 +154,7 @@ alias path="echo -e ${PATH//:/\\n}"
 
 # Navigate through dirs history
 d='dirs -v | head -10'
+0='~0'
 1='~1'
 2='~2'
 3='~3'
@@ -215,6 +190,16 @@ alias :q="exit"
 # alias ggl="git pull origin $(current_branch)"
 # alias ggp="git push origin $(current_branch)"
 # alias gcf="git config --list"
+
+# Generate pacman pkg list and AUR pkg list
+pkgen() {
+  # Pacman pkg list
+  pacman -Qqen > $HOME/dotfiles/pkglist/pacman-pkglist.txt
+  # AUR pkg list
+  pacman -Qqem > $HOME/dotfiles/pkglist/yay-pkglist.txt
+
+  echo "Package lists generated!!!"
+}
 
 # Init starship zsh theme
 eval "$(starship init zsh)"
