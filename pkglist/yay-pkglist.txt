@@ -8,5 +8,4 @@ simple-mtpfs
 spotify
 visual-studio-code-bin
 vlc-arc-dark-git
-xob
 yay-git

@@ -84,9 +84,6 @@ xcb-util-cursor
 xclip
 xdotool
 xf86-video-vesa
-xmobar
-xmonad
-xmonad-contrib
 xorg-bdftopcf
 xorg-docs
 xorg-font-util
