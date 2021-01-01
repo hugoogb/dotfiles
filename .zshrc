@@ -136,10 +136,10 @@ export EDITOR='nvim'
 alias reload="source $HOME/.zshrc"
 
 # Execute dotfiles bootstrap
-alias dotstrap=". $HOME/dotfiles/bootstrap.sh"
+alias dotstrap="curl -s https://raw.githubusercontent.com/hugoogb/dotfiles/master/bootstrap.sh | bash"
 
 # System aliases
-alias distro="cat /etc/*-release"
+alias distro="cat /etc/*-release | head -1 | tail -1 | cut -d= -f2"
 
 # alias python="python3"
 
