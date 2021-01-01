@@ -99,7 +99,7 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git jump colored-man-pages safe-paste zsh-interactive-cd zsh-syntax-highlighting k)
+plugins=(git jump colored-man-pages safe-paste zsh-interactive-cd zsh-syntax-highlighting k zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
