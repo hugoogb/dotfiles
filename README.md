@@ -5,7 +5,7 @@ Screenshots go here
 # Table of contents
 
 - [Install & setup](#install--setup)
-  - [Dual boot Arch Linux & Windows](#dual-boot-arch-linux--windows)
+  - [GUIDE: Dual boot Arch Linux & Windows](#guide:-dual-boot-arch-linux--windows)
     - [Keyboard layout](#keyboard-layout)
     - [Verify connection](#verify-connection)
     - [Update the system clock](#update-the-system-clock)
@@ -27,8 +27,7 @@ Screenshots go here
     - [Connect to your network](#connect-to-your-network)
   - [Arch linux setup](#arch-linux-setup)
     - [Install git](#install-git)
-    - [Clone repo](#clone-repo)
-    - [Bootstrap](#bootstrap)
+    - [Curl command](#curl-command)
 - [Keybindings](#keybindings)
   - [Windows](#windows)
   - [Apps](#apps)
@@ -37,7 +36,7 @@ Screenshots go here
 
 [Official arch install guide](https://wiki.archlinux.org/index.php/installation_guide)
 
-## Dual boot Arch Linux & Windows
+## GUIDE: Dual boot Arch Linux & Windows
 
 ### Keyboard layout
 
@@ -306,16 +305,10 @@ nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 sudo pacman -S git
 ```
 
-### Clone repo
+### Curl Command
 
 ```sh
-git clone https://github.com/hugoogb/dotfiles.git ~/dotfiles
-```
-
-### Bootstrap
-
-```sh
-. ~/dotfiles/bootstrap.sh
+curl -s https://raw.githubusercontent.com/hugoogb/dotfiles/master/bootstrap.sh | bash
 ```
 
 # Keybindings
