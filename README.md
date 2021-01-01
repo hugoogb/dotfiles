@@ -5,7 +5,7 @@ Screenshots go here
 # Table of contents
 
 - [Install & setup](#install--setup)
-  - [GUIDE: Dual boot Arch Linux & Windows](#guide:-dual-boot-arch-linux--windows)
+  - [GUIDE: Dual boot Arch Linux & Windows](#guide-dual-boot-arch-linux--windows)
     - [Keyboard layout](#keyboard-layout)
     - [Verify connection](#verify-connection)
     - [Update the system clock](#update-the-system-clock)
