@@ -47,9 +47,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
-" -> Startup time
-Plug 'tweekmonster/startuptime.vim'
-
 " -> WakaTime
 " Plug 'wakatime/vim-wakatime'
 
