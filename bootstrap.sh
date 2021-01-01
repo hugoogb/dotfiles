@@ -50,6 +50,11 @@ DOTDIR="$HOME/dotfiles"
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
 
+if [ ! program_exists "git" ]
+then
+  error "Git is not installed"
+fi
+
 # Dotfiles update
 update_dotfiles() {
   cd $DOTDIR
@@ -250,10 +255,23 @@ lsp_install() {
   info "Installing LSP servers (and dependencies)..."
 
   # Rust lang setup
-  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-  curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
-  chmod +x ~/.local/bin/rust-analyzer
 
+  if [ ! program_exists "rustup" ]
+  then
+    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+  else
+    warn "WARNING: rust already installed"
+  fi
+
+  if [ ! program_exists "rust-analyzer" ]
+  then
+    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
+    chmod +x ~/.local/bin/rust-analyzer
+  else
+    warn "WARNING: rust-analyzer already installed"
+  fi
+
+  # npm setup
   mkdir $HOME/.npm-global
   npm config set prefix '~/.npm-global'
 
@@ -281,15 +299,53 @@ lsp_install() {
 # Installing oh-my-zsh
 ohmyzsh_install() {
   info "Installing oh-my-zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  OH_MY_ZSH_DIR=$HOME/.oh-my-zsh
+
+  if [ -d $OH_MY_ZSH_DIR ]
+  then
+    warn "WARNING: oh-my-zsh already installed"
+  else
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
 
   info "Installing zsh plugins..."
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-  git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+  ZSH_SYNTAX_HIGHLIGHTING_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+  if [ -d $ZSH_SYNTAX_HIGHLIGHTING_PLUGIN ]
+  then
+    warn "WARNING: oh-my-zsh plugin: zsh-syntax-highlighting already installed"
+  else
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  fi
+
+  ZSH_K_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/k
+
+  if [ -d $ZSH_K_PLUGIN ]
+  then
+    warn "WARNING: oh-my-zsh plugin: k already installed"
+  else
+    git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
+  fi
+
+  ZSH_AUTOSUGGESTIONS_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+  if [ -d $ZSH_AUTOSUGGESTIONS_PLUGIN ]
+  then
+    warn "WARNING: oh-my-zsh plugin: zsh-autosuggestions already installed"
+  else
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  fi
 
   info "Installing starship..."
-  curl -fsSL https://starship.rs/install.sh | bash
+
+  if [ ! program_exists "starship" ]
+  then
+    curl -fsSL https://starship.rs/install.sh | bash
+  else
+    warn "WARNING: starship already installed"
+  fi
 }
 
 # Installing Vim-Plug
@@ -302,6 +358,7 @@ vimplug_install() {
 # Linking dotfiles
 link_dotfiles() {
   info "Linking dotfiles..."
+
   # Link .bashrc
   rm -rf $HOME/.bashrc
   ln -sv $HOME/dotfiles/.bashrc $HOME/.bashrc
@@ -326,12 +383,19 @@ link_dotfiles() {
   ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
   rm -rf $HOME/.config/nvim/plug-config
   ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
-  rm -rf $HOME/.config/nvim/vim-plug
-  cp -rv $HOME/dotfiles/.config/nvim/vim-plug $HOME/.config/nvim/vim-plug
+
+  NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/vim-plug/plugins.vim
+
+  if [ -e $NEOVIM_PLUGINS_FILE ]
+  then
+    warn "WARNING: neovim plugins file already exists"
+    info "Using existing neovim plugins file"
+  else
+    cp -rfv $HOME/dotfiles/.config/nvim/vim-plug $HOME/.config/nvim/vim-plug
+  fi
 
   # Link ssh config
   mkdir $HOME/.ssh
-  rm -rf $HOME/.ssh/config
   ln -sv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
 }
 
