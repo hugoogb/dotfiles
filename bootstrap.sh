@@ -50,8 +50,7 @@ DOTDIR="$HOME/dotfiles"
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
 
-if [ ! program_exists "git" ]
-then
+if ! program_exists "git"; then
   error "Git is not installed"
 fi
 
@@ -65,8 +64,7 @@ update_dotfiles() {
 }
 
 clone_dotfiles() {
-  if [ -d $DOTDIR ]
-  then
+  if [ -d $DOTDIR ]; then
     warn "WARNING: dotfiles dir already exists..."
     update_dotfiles
   else
@@ -256,15 +254,13 @@ lsp_install() {
 
   # Rust lang setup
 
-  if [ ! program_exists "rustup" ]
-  then
+  if ! program_exists "rustup"; then
     curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
   else
     warn "WARNING: rust already installed"
   fi
 
-  if [ ! program_exists "rust-analyzer" ]
-  then
+  if ! program_exists "rust-analyzer"; then
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
   else
@@ -302,8 +298,7 @@ ohmyzsh_install() {
 
   OH_MY_ZSH_DIR=$HOME/.oh-my-zsh
 
-  if [ -d $OH_MY_ZSH_DIR ]
-  then
+  if [ -d $OH_MY_ZSH_DIR ]; then
     warn "WARNING: oh-my-zsh already installed"
   else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -313,8 +308,7 @@ ohmyzsh_install() {
 
   ZSH_SYNTAX_HIGHLIGHTING_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
-  if [ -d $ZSH_SYNTAX_HIGHLIGHTING_PLUGIN ]
-  then
+  if [ -d $ZSH_SYNTAX_HIGHLIGHTING_PLUGIN ]; then
     warn "WARNING: oh-my-zsh plugin: zsh-syntax-highlighting already installed"
   else
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -322,8 +316,7 @@ ohmyzsh_install() {
 
   ZSH_K_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/k
 
-  if [ -d $ZSH_K_PLUGIN ]
-  then
+  if [ -d $ZSH_K_PLUGIN ]; then
     warn "WARNING: oh-my-zsh plugin: k already installed"
   else
     git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
@@ -331,8 +324,7 @@ ohmyzsh_install() {
 
   ZSH_AUTOSUGGESTIONS_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-  if [ -d $ZSH_AUTOSUGGESTIONS_PLUGIN ]
-  then
+  if [ -d $ZSH_AUTOSUGGESTIONS_PLUGIN ]; then
     warn "WARNING: oh-my-zsh plugin: zsh-autosuggestions already installed"
   else
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -340,8 +332,7 @@ ohmyzsh_install() {
 
   info "Installing starship..."
 
-  if [ ! program_exists "starship" ]
-  then
+  if ! program_exists "starship"; then
     curl -fsSL https://starship.rs/install.sh | bash
   else
     warn "WARNING: starship already installed"
@@ -386,8 +377,7 @@ link_dotfiles() {
 
   NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/vim-plug/plugins.vim
 
-  if [ -e $NEOVIM_PLUGINS_FILE ]
-  then
+  if [ -e $NEOVIM_PLUGINS_FILE ]; then
     warn "WARNING: neovim plugins file already exists"
     info "Using existing neovim plugins file"
   else
