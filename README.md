@@ -276,9 +276,8 @@ Found Windows Boot Manager on ...
 ### Network manager
 
 ```sh
-pacman -S networkmanager dhcpcd
+pacman -S networkmanager
 systemctl enable NetworkManager
-systemctl enable dhcpcd
 ```
 
 ### Exit, unmount and reboot
