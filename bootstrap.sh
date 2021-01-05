@@ -109,7 +109,7 @@ aur_helper() {
   info "Installing AUR helper (yay)..."
 
   if ! program_exists "yay"; then
-    pacman -S --needed git base-devel
+    sudo pacman -S --needed git base-devel
     git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
     cd $HOME/.yay
     makepkg -si
@@ -145,8 +145,8 @@ arch_setup(){
   mkdir -p $HOME/temp
   cd $HOME/temp
   wget -L -i $HOME/dotfiles/.local/themes/url-themes.txt
-  unzip Material-Black-Blueberry_1.9.1.zip
-  unzip Material-Black-Blueberry-Suru_1.9.1.zip
+  unzip -q Material-Black-Blueberry_1.9.1.zip
+  unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
   sudo mv $HOME/temp/Material-Black-Blueberry /usr/share/themes
   sudo mv $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
@@ -256,20 +256,6 @@ arch_install_setup() {
 # LSP Install
 lsp_install() {
   info "Installing LSP dependencies..."
-
-  # Rust lang setup
-  # if ! program_exists "rustup"; then
-    # curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-  # else
-    # warn "WARNING: rust already installed"
-  # fi
-
-  # if ! program_exists "rust-analyzer"; then
-    # curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
-    # chmod +x ~/.local/bin/rust-analyzer
-  # else
-    # warn "WARNING: rust-analyzer already installed"
-  # fi
 
   # npm setup
   mkdir $HOME/.npm-global
