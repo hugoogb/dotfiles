@@ -94,8 +94,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export NPM_CONFIG_PREFIX="$HOME/.npm-global/bin"
 
-source "$HOME/.cargo/env"
-
 setopt globdots
 
 # fzf settings
