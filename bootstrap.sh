@@ -170,7 +170,8 @@ arch_setup(){
   echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
 }
 
-grub_theme() {
+# grub themes installation, configure them with grub-customizer
+grub_themes_install() {
   info "Installing vimix grub theme..."
 
   GRUB_THEME_DIR=/boot/grub/themes
@@ -268,6 +269,7 @@ arch_install_setup() {
   aur_helper
   aur_pkg_install
   arch_setup
+  grub_themes_install
   lightdm_setup
   qtile_setup
   rofi_setup
