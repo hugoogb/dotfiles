@@ -27,6 +27,8 @@ Screenshots go here
     - [Connect to your network](#connect-to-your-network)
   - [Arch linux setup](#arch-linux-setup)
     - [Install git](#install-git)
+    - [Clone repo](#clone-repo)
+    - [Bootstrap script](#bootstrap-script)
     - [Curl command](#curl-command)
 - [Keybindings](#keybindings)
   - [Windows](#windows)
@@ -304,7 +306,20 @@ nmcli device wifi connect YOUR_SSID password YOUR_PASSWORD
 sudo pacman -S git
 ```
 
-### Curl Command
+### Clone repo
+
+```sh
+git clone https://github.com/hugoogb/dotfiles.git ~/dotfiles
+```
+
+### Bootstrap script
+
+```sh
+. ~/dotfiles/bootstrap.sh
+```
+
+### Curl command
+You can clone and execute the script or just use the curl command below
 
 ```sh
 curl -s https://raw.githubusercontent.com/hugoogb/dotfiles/master/bootstrap.sh | bash
@@ -312,7 +327,7 @@ curl -s https://raw.githubusercontent.com/hugoogb/dotfiles/master/bootstrap.sh |
 
 # Keybindings
 
-## Windows
+## Window manager
 
 | Key                     | Action                           |
 | ----------------------- | -------------------------------- |
