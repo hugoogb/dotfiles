@@ -178,6 +178,7 @@ grub_themes_install() {
 
   GRUB_VIMIX_THEME_DIR=/boot/grub/themes/Vimix
   VIMIX_CLONE_DIR=$HOME/temp/grub2-theme-vimix
+
   sudo rm -rf $GRUB_VIMIX_THEME_DIR
   git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
   sudo mv $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
