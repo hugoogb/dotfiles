@@ -142,7 +142,7 @@ arch_setup(){
 
   info "Installing material black theme and custom mouse..."
 
-  mkdir -p $HOME/temp
+  mkdir $HOME/temp
   cd $HOME/temp
   wget -L -i $HOME/dotfiles/.local/themes/url-themes.txt
   unzip -q Material-Black-Blueberry_1.9.1.zip
@@ -151,9 +151,9 @@ arch_setup(){
   sudo rm -rf /usr/share/themes/Material-Black-Blueberry
   sudo rm -rf /usr/share/icons/Material-Black-Blueberry-Suru
   sudo rm -rf /usr/share/icons/Breeze
-  sudo mv -f $HOME/temp/Material-Black-Blueberry /usr/share/themes
-  sudo mv -f $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
-  sudo mv -f $HOME/temp/Breeze /usr/share/icons
+  sudo mv $HOME/temp/Material-Black-Blueberry /usr/share/themes
+  sudo mv $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
+  sudo mv $HOME/temp/Breeze /usr/share/icons
   cd $ACTUAL_DIR
   rm -rf $HOME/temp
 
