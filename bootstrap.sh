@@ -109,11 +109,11 @@ aur_helper() {
   info "Installing AUR helper (yay)..."
 
   if ! program_exists "yay"; then
+    pacman -S --needed git base-devel
     git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
     cd $HOME/.yay
     makepkg -si
     cd $ACTUAL_DIR
-    rm -rf $HOME/.yay
   else
     warn "WARNING: yay already installed"
   fi
