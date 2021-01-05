@@ -156,11 +156,7 @@ pacstrap /mnt base linux linux-firmware nano
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
-Check the resulting file, edit in case of errors
-
-```sh
-cat /mnt/etc/fstab
-```
+Check the resulting file `cat /mnt/etc/fstab`, edit in case of errors
 
 ### Chroot
 
