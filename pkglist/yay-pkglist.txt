@@ -1,6 +1,5 @@
 bluetooth-autoconnect
 brave-bin
-grub2-theme-vimix-git
 lightdm-webkit-theme-aether
 neovim-nightly-git
 nerd-fonts-fira-code
