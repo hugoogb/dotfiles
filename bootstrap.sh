@@ -280,12 +280,12 @@ lsp_install() {
 
   # Neovim providers
   npm install -g neovim
-  pip install --upgrade pynvim
+  pip install pynvim
 
   # Python lang setup
   pip install jedi
   pip install 'python-language-server[all]'
-  pip install -U setuptools
+  pip install setuptools
 
   # CMake setup
   pip install cmake-language-server
