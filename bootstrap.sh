@@ -148,9 +148,9 @@ arch_setup(){
   unzip -q Material-Black-Blueberry_1.9.1.zip
   unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
-  sudo mv $HOME/temp/Material-Black-Blueberry /usr/share/themes
-  sudo mv $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
-  sudo mv $HOME/temp/Breeze /usr/share/icons
+  sudo mv --update $HOME/temp/Material-Black-Blueberry /usr/share/themes
+  sudo mv --update $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
+  sudo mv --update $HOME/temp/Breeze /usr/share/icons
   cd $ACTUAL_DIR
   rm -rf $HOME/temp
 
@@ -264,7 +264,12 @@ lsp_install() {
   info "Installing LSP dependencies..."
 
   # npm setup
-  mkdir $HOME/.npm-global
+  NPM_GLOBAL_DIR=$HOME/.npm-global
+
+  if [ ! -d $NPM_GLOBAL_DIR ]; then
+    mkdir $NPM_GLOBAL_DIR
+  fi
+
   npm config set prefix '~/.npm-global'
 
   npm i -g npm
@@ -340,7 +345,7 @@ link_dotfiles() {
   rm -rf $HOME/.zshrc
   ln -sv $HOME/dotfiles/.zshrc $HOME/.zshrc
   rm -rf $HOME/.config/starship/
-  mkdir -pv $HOME/.config/starship
+  mkdir -p $HOME/.config/starship
   ln -sv $HOME/dotfiles/.config/starship/starship.toml $HOME/.config/starship
 
   # Link neovim configuration
