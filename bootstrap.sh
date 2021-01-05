@@ -255,22 +255,21 @@ arch_install_setup() {
 
 # LSP Install
 lsp_install() {
-  info "Installing LSP servers (and dependencies)..."
+  info "Installing LSP dependencies..."
 
   # Rust lang setup
+  # if ! program_exists "rustup"; then
+    # curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+  # else
+    # warn "WARNING: rust already installed"
+  # fi
 
-  if ! program_exists "rustup"; then
-    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
-  else
-    warn "WARNING: rust already installed"
-  fi
-
-  if ! program_exists "rust-analyzer"; then
-    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
-    chmod +x ~/.local/bin/rust-analyzer
-  else
-    warn "WARNING: rust-analyzer already installed"
-  fi
+  # if ! program_exists "rust-analyzer"; then
+    # curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
+    # chmod +x ~/.local/bin/rust-analyzer
+  # else
+    # warn "WARNING: rust-analyzer already installed"
+  # fi
 
   # npm setup
   mkdir $HOME/.npm-global
@@ -281,20 +280,6 @@ lsp_install() {
   # Neovim providers
   npm install -g neovim
   pip install pynvim
-
-  # Python lang setup
-  pip install jedi
-  pip install 'python-language-server[all]'
-  pip install setuptools
-
-  # CMake setup
-  pip install cmake-language-server
-
-  # npm i -g bash-language-server
-  # npm i -g vscode-css-languageserver-bin
-  # npm i -g vscode-html-languageserver-bin
-  # npm i -g vscode-json-languageserver
-  # npm i -g typescript-language-server
 }
 
 # Installing oh-my-zsh
@@ -416,15 +401,34 @@ nvim_bootstrap() {
 # Installing lsp servers
 lsp_bootstrap() {
   info "Setting up lsp servers..."
-  nvim --headless "+LspInstall bashls" "+LspInstall vimls" "+LspInstall html" "+qall"
-  nvim --headless "+LspInstall tsserver" "+LspInstall jsonls" "+qall"
-  nvim --headless "+LspInstall cssls" "+LspInstall sumneko_lua" "+qall"
 
-  # Listed here are installed manually
-  # LspInstall pyls
-  # LspInstall clangd
-  # LspInstall rust_analyzer
+  # LspInstall vimls
+  npm install -g vim-language-server
+
   # LspInstall cmake-language-server
+  pip install cmake-language-server
+
+  # LspInstall bashls
+  npm install -g bash-language-server
+
+  # LspInstall pyls
+  pip install jedi
+  pip install 'python-language-server[all]'
+  pip install setuptools
+
+  # LspInstall html
+  npm install -g vscode-html-languageserver-bin
+
+  # LspInstall cssls
+  npm install -g vscode-css-languageserver-bin
+
+  # LspInstall jsonls
+  npm install -g vscode-json-languageserver
+
+  # LspInstall tsserver
+  npm install -g typescript typescript-language-server
+
+  # LspInstall clangd
 }
 
 nvim_setup() {
