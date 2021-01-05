@@ -148,9 +148,9 @@ arch_setup(){
   unzip -q Material-Black-Blueberry_1.9.1.zip
   unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
-  sudo mv --update $HOME/temp/Material-Black-Blueberry /usr/share/themes
-  sudo mv --update $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
-  sudo mv --update $HOME/temp/Breeze /usr/share/icons
+  sudo mv -f $HOME/temp/Material-Black-Blueberry /usr/share/themes
+  sudo mv -f $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
+  sudo mv -f $HOME/temp/Breeze /usr/share/icons
   cd $ACTUAL_DIR
   rm -rf $HOME/temp
 
