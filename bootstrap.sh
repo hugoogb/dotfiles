@@ -206,9 +206,11 @@ rofi_setup() {
 ranger_setup() {
   info "Setting up ranger..."
 
+  rm -rf $HOME/.config/ranger
+  mkdir -p $HOME/.config/ranger
+
   git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins
 
-  rm -rf $HOME/.config/ranger
   ln -sv $HOME/dotfiles/.config/ranger/rc.conf $HOME/.config/ranger/rc.conf
 }
 
@@ -225,9 +227,13 @@ alacritty_setup() {
   info "Installing pycritty..."
 
   # Pycritty
-  git clone https://github.com/antoniosarosi/pycritty $HOME/.config/alacritty
-  ln -sf $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
-  chmod 755 $HOME/.config/alacritty/pycritty/src/main.py
+  if ! program_exists "pycritty"; then
+    git clone https://github.com/antoniosarosi/pycritty $HOME/.config/alacritty/pycritty
+    ln -sf $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
+    chmod 755 $HOME/.config/alacritty/pycritty/src/main.py
+  else
+    warn "WARNING: pycritty already installed"
+  fi
 }
 
 # Openbox setup
