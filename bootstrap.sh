@@ -148,12 +148,9 @@ arch_setup(){
   unzip -q Material-Black-Blueberry_1.9.1.zip
   unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
-  sudo rm -rf /usr/share/themes/Material-Black-Blueberry
-  sudo rm -rf /usr/share/icons/Material-Black-Blueberry-Suru
-  sudo rm -rf /usr/share/icons/Breeze
-  sudo mv $HOME/temp/Material-Black-Blueberry /usr/share/themes
-  sudo mv $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
-  sudo mv $HOME/temp/Breeze /usr/share/icons
+  sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes
+  sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
+  sudo cp -rf $HOME/temp/Breeze /usr/share/icons
   cd $ACTUAL_DIR
   rm -rf $HOME/temp
 
@@ -181,7 +178,7 @@ grub_themes_install() {
 
   sudo rm -rf $GRUB_VIMIX_THEME_DIR
   git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
-  sudo mv $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
+  sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
   rm -rf $HOME/temp
   cd $ACTUAL_DIR
 }
