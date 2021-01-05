@@ -445,6 +445,5 @@ main() {
 
 main
 
-echo
 ok "Dotfiles installed and setup done!!!"
 warn "WARNING: don't forget to reboot in order to get everything working properly"
