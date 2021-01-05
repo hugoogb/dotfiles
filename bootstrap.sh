@@ -405,9 +405,6 @@ lsp_bootstrap() {
   # LspInstall vimls
   npm install -g vim-language-server
 
-  # LspInstall cmake-language-server
-  pip install cmake-language-server
-
   # LspInstall bashls
   npm install -g bash-language-server
 
@@ -429,6 +426,9 @@ lsp_bootstrap() {
   npm install -g typescript typescript-language-server
 
   # LspInstall clangd
+
+  # LspInstall cmake-language-server
+  pip install cmake-language-server
 }
 
 nvim_setup() {
