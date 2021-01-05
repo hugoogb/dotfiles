@@ -256,9 +256,8 @@ If it fails you could try: `grub-install --target=x86_64-efi --efi-directory=/bo
 
 ```sh
 # Mount Windows EFI System
-fdisk -l # Look at the partitions
-mkdir /mnt2
-mount /dev/nvme0n1p1 /mnt2 # Mount your Windows EFI System partition
+mkdir /boot/windows
+mount /dev/nvme0n1p1 /boot/windows # Mount your Windows EFI System partition
 
 # Grub setup
 grub-mkconfig -o /boot/grub/grub.cfg
