@@ -170,6 +170,20 @@ arch_setup(){
   echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
 }
 
+grub_theme() {
+  info "Installing vimix grub theme..."
+
+  GRUB_THEME_DIR=/boot/grub/themes
+
+  GRUB_VIMIX_THEME_DIR=/boot/grub/themes/Vimix
+  VIMIX_CLONE_DIR=$HOME/temp/grub2-theme-vimix
+  rm -rf $GRUB_VIMIX_THEME_DIR
+  git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
+  sudo mv $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
+  rm -rf $HOME/temp
+  cd $ACTUAL_DIR
+}
+
 # lightdm setup
 lightdm_setup() {
   info "Setting up lightdm..."
