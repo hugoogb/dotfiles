@@ -1,4 +1,5 @@
 bluetooth-autoconnect
+brave-bin
 lightdm-webkit-theme-aether
 neovim-nightly-git
 nerd-fonts-fira-code
