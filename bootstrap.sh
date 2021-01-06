@@ -397,8 +397,7 @@ general_install() {
 nvim_bootstrap() {
   info "Bootstraping nVim..."
 
-  nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
-  nvim --headless "+PlugUpdate" "+PlugClean!" "+qall"
+  nvim --headless "+PlugUpgrade" "+PlugInstall" "+PlugUpdate" "+qall"
 }
 
 nvim_link() {
