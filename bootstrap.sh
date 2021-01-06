@@ -390,11 +390,11 @@ link_dotfiles() {
   # ssh config
   SSH_CONFIG_FILE=$HOME/.ssh/config
 
-  if [ -e $NEOVIM_PLUGINS_FILE ]; then
+  if [ -e $SSH_CONFIG_FILE ]; then
     warn "WARNING: ssh config file already exists, using existing file"
   else
     mkdir $HOME/.ssh
-    cp -uv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
+    cp -fv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
   fi
 }
 
