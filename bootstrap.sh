@@ -447,7 +447,6 @@ lsp_bootstrap() {
   npm install -g typescript typescript-language-server
 
   # LspInstall clangd
-
   # LspInstall cmake-language-server
   pip install cmake-language-server
 }
