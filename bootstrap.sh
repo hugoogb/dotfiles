@@ -397,7 +397,7 @@ general_install() {
 nvim_bootstrap() {
   info "Bootstraping nVim..."
 
-  nvim --headless "+PlugUpgrade" "+PlugInstall" "+PlugUpdate" "+qall"
+  nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
   warn "WARNING: :PlugClean has to be done manually"
 }
 
