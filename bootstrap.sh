@@ -54,6 +54,21 @@ if ! program_exists "git"; then
   error "Git is not installed"
 fi
 
+# check if running in laptop or desktop
+laptop_or_desktop() {
+  info "Checking if you are in laptop or desktop..."
+
+  POWER_DIR=/sys/class/power_supply
+
+  if [ "$(ls -A $POWER_DIR)" ]; then
+    ok "Running in laptop"
+    RUNNING_IN=laptop
+  else
+    ok "Running in desktop"
+    RUNNING_IN=desktop
+  fi
+}
+
 # Dotfiles update
 update_dotfiles() {
   cd $DOTDIR
@@ -78,6 +93,7 @@ clone_dotfiles() {
 
 
 clone_update_repo() {
+  laptop_or_desktop
   clone_dotfiles
 }
 
