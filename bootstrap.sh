@@ -124,7 +124,7 @@ aur_pkg_install() {
   info "Installing AUR pkg(s)..."
 
   # Install all pkgs of the list
-  yay -S --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/pkglist/yay-pkglist.txt
+  yay -S --needed --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/pkglist/yay-pkglist.txt
 
   # Bluetooth autoconnect trusted devices
   sudo systemctl enable bluetooth-autoconnect
