@@ -91,7 +91,6 @@ clone_dotfiles() {
   ok "Dotfiles cloned and updated succesfully!!!"
 }
 
-
 clone_update_repo() {
   laptop_or_desktop
   clone_dotfiles
@@ -147,7 +146,7 @@ aur_pkg_install() {
 }
 
 arch_setup(){
-  info "Configuring .xprofile..."
+  info "Setting up .xprofile..."
 
   mkdir -p $HOME/.config
   mkdir -p $HOME/.local/bin
