@@ -1,6 +1,10 @@
 # dotfiles @hugoogb
 
-Screenshots go here
+## Gallery
+
+![alacritty terminal](/img/terminal.png)
+
+![qtile](/img/qtile.png)
 
 # Table of contents
 
@@ -315,6 +319,7 @@ git clone https://github.com/hugoogb/dotfiles.git ~/dotfiles
 ```
 
 ### Curl command
+
 You can clone and execute the script or just use the curl command below
 
 ```sh
