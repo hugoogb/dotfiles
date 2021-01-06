@@ -398,6 +398,7 @@ nvim_bootstrap() {
   info "Bootstraping nVim..."
 
   nvim --headless "+PlugUpgrade" "+PlugInstall" "+PlugUpdate" "+qall"
+  warn "WARNING: :PlugClean has to be done manually"
 }
 
 nvim_link() {
