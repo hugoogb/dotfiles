@@ -88,7 +88,7 @@ arch_pkg_install() {
   # Install all pkgs of the list
   sudo pacman -S --needed --noconfirm - < $HOME/dotfiles/pkglist/pacman-pkglist.txt
 
-  info "Setting up pkg(s)"
+  info "Setting up pkg(s)..."
 
   # lightdm
   sudo systemctl enable lightdm
@@ -365,19 +365,7 @@ link_dotfiles() {
   mkdir -p $HOME/.config/starship
   ln -sv $HOME/dotfiles/.config/starship/starship.toml $HOME/.config/starship
 
-  # Link neovim configuration
-  rm -rf $HOME/.config/nvim/init.vim
-  ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
-  rm -rf $HOME/.config/nvim/general
-  ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
-  rm -rf $HOME/.config/nvim/keys
-  ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
-  rm -rf $HOME/.config/nvim/colors
-  ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
-  rm -rf $HOME/.config/nvim/lua
-  ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
-  rm -rf $HOME/.config/nvim/plug-config
-  ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
+  info "Copying (neo)vim plugins file..."
 
   NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/vim-plug/plugins.vim
 
@@ -408,8 +396,27 @@ general_install() {
 # Bootstraping NVIM
 nvim_bootstrap() {
   info "Bootstraping nVim..."
+
   nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
   nvim --headless "+PlugUpdate" "+PlugClean!" "+qall"
+}
+
+nvim_link() {
+  info "Linking (neo)vim config..."
+
+  # Link neovim configuration
+  rm -rf $HOME/.config/nvim/init.vim
+  ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
+  rm -rf $HOME/.config/nvim/general
+  ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
+  rm -rf $HOME/.config/nvim/keys
+  ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
+  rm -rf $HOME/.config/nvim/colors
+  ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
+  rm -rf $HOME/.config/nvim/lua
+  ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
+  rm -rf $HOME/.config/nvim/plug-config
+  ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
 }
 
 # Installing lsp servers
@@ -447,6 +454,7 @@ lsp_bootstrap() {
 
 nvim_setup() {
   nvim_bootstrap
+  nvim_link
   lsp_bootstrap
 }
 
