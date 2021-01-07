@@ -33,7 +33,7 @@ font:
     family: UbuntuMono Nerd Font
   normal:
     family: UbuntuMono Nerd Font
-  size: 10.0
+  size: 12.0
 mouse:
   double_click:
     threshold: 300
