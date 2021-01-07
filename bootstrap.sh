@@ -45,10 +45,13 @@ program_exists() {
 }
 
 ACTUAL_DIR=`pwd`
-DOTDIR="$HOME/dotfiles"
+DOTDIR=$HOME/dotfiles
+TEMP_DIR=$HOME/temp
 
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
+
+mkdir $TEMP_DIR
 
 if ! program_exists "git"; then
   error "Git is not installed"
@@ -126,9 +129,8 @@ aur_helper() {
   info "Installing AUR helper (yay)..."
 
   if ! program_exists "yay"; then
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay-git.git $HOME/.yay
-    cd $HOME/.yay
+    git clone https://aur.archlinux.org/yay-git.git $TEMP_DIR/yay
+    cd $TEMP_DIR/yay
     makepkg -si
     cd $ACTUAL_DIR
   else
@@ -150,7 +152,7 @@ aur_pkg_install() {
 arch_setup(){
   info "Setting up .xprofile..."
 
-  mkdir -p $HOME/.config
+  mkdir $HOME/.config
   mkdir -p $HOME/.local/bin
 
   # .xprofile
@@ -158,27 +160,46 @@ arch_setup(){
   # ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
   cp -fv $HOME/dotfiles/.xprofile $HOME/
 
-  info "Installing material black theme and custom mouse..."
+  info "Installing material black blueberry theme and custom mouse..."
 
-  mkdir $HOME/temp
-  cd $HOME/temp
-  wget -L -i $HOME/dotfiles/.local/themes/url-themes.txt
-  unzip -q Material-Black-Blueberry_1.9.1.zip
-  unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
-  tar -xf 165371-Breeze.tar.gz
-  sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes/
-  sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons/
-  sudo cp -rf $HOME/temp/Breeze /usr/share/icons/
+  mkdir $TEMP_DIR/themes
+  cd $TEMP_DIR/themes
+
+  THEME=/usr/share/themes/Material-Black-Blueberry
+  ICON_THEME=/usr/share/icons/Material-Black-Blueberry-Suru
+  CURSOR_THEME=/usr/share/icons/Breeze
+
+  if [ ! -d $THEME ]; then
+    curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry_1.9.1.zip -o Material-Black-Blueberry.zip
+    unzip -q Material-Black-Blueberry.zip
+    sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes/
+  else
+    warn "WARNING: Material Black Blueberry theme already downloaded"
+  fi
+
+  if [ ! -d $ICON_THEME ]; then
+    curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry-Suru_1.9.1.zip -o Material-Black-Blueberry-Suru.zip
+    unzip -q Material-Black-Blueberry-Suru.zip
+    sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons/
+  else
+    warn "WARNING: Material Black Blueberry Suru icon theme already downloaded"
+  fi
+
+  if [ ! -d $CURSOR_THEME ]; then
+    curl https://raw.githubusercontent.com/hugoogb/themes/master/165371-Breeze.tar.gz -o Breeze.tar.gz
+    tar -xf Breeze.tar.gz
+    sudo cp -rf $HOME/temp/Breeze /usr/share/icons/
+  else
+    warn "WARNING: Breeze cursor theme already downloaded"
+  fi
+
   cd $ACTUAL_DIR
-  rm -rf $HOME/temp
 
   sudo cp -fv $HOME/dotfiles/.local/themes/index.theme /usr/share/icons/default/
 
-  # ~/.gtkrc-2.0
   # rm $HOME/.gtkrc-2.0
   # ln -sv $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
   cp -fv $HOME/dotfiles/.gtkrc-2.0 $HOME/
-  # ~/.config/gtk-3.0/settings.ini
   # rm -rf $HOME/.config/gtk-3.0
   # ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
   cp -rfv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
@@ -194,13 +215,11 @@ grub_themes_install() {
   GRUB_THEME_DIR=/boot/grub/themes/
 
   GRUB_VIMIX_THEME_DIR=/boot/grub/themes/Vimix
-  VIMIX_CLONE_DIR=$HOME/temp/grub2-theme-vimix
+  VIMIX_CLONE_DIR=$TEMP_DIR/grub2-theme-vimix
 
   if [ ! -d $GRUB_VIMIX_THEME_DIR ]; then
     git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
     sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
-    rm -rf $HOME/temp
-    cd $ACTUAL_DIR
   else
     warn "WARNING: Vimix grub theme already installed"
   fi
@@ -230,11 +249,8 @@ qtile_setup() {
 rofi_setup() {
   info "Setting up rofi..."
 
-  cd $HOME
-  git clone https://github.com/davatorium/rofi-themes.git
-  sudo cp -fv rofi-themes/User\ Themes/onedark.rasi /usr/share/rofi/themes/
-  cd $ACTUAL_DIR
-  rm -rf $HOME/rofi-themes
+  git clone https://github.com/davatorium/rofi-themes.git $TEMP_DIR/rofi-themes
+  sudo cp -fv $TEMP_DIR/rofi-themes/User\ Themes/onedark.rasi /usr/share/rofi/themes/
 
   sudo cp -fv $HOME/dotfiles/.local/themes/onedark.rasi /usr/share/rofi/themes/
 
@@ -380,8 +396,14 @@ ohmyzsh_install() {
 # Installing Vim-Plug
 vimplug_install() {
   info "Installing vim-plug..."
-  sh -c 'curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+  VIM_PLUG_FILE=$HOME/.config/nvim/autoload/plug.vim
+
+  if [ ! -e $VIM_PLUG_FILE ]; then
+    sh -c 'curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  else
+    warn "WARNING: vim-plug already installed"
+  fi
 }
 
 # Linking dotfiles
@@ -402,30 +424,6 @@ link_dotfiles() {
   # ln -sv $HOME/dotfiles/.config/starship/starship.toml $HOME/.config/starship/starship.toml
   cp -rfv $HOME/dotfiles/.config/starship $HOME/.config/
 
-  # Link neovim configuration
-  info "Linking (neo)vim config..."
-
-  mkdir -p $HOME/.config/nvim
-
-  # rm -rf $HOME/.config/nvim/init.vim
-  # ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
-  cp -fv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/
-  # rm -rf $HOME/.config/nvim/general
-  # ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
-  cp -rfv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/
-  # rm -rf $HOME/.config/nvim/keys
-  # ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
-  cp -rfv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/
-  # rm -rf $HOME/.config/nvim/colors
-  # ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
-  cp -rfv $HOME/dotfiles/.config/nvim/theme $HOME/.config/nvim/
-  # rm -rf $HOME/.config/nvim/lua
-  # ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
-  cp -rfv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/
-  # rm -rf $HOME/.config/nvim/plug-config
-  # ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
-  cp -rfv $HOME/dotfiles/.config/nvim/plugconf $HOME/.config/nvim/
-
   info "Copying (neo)vim plugins file..."
 
   NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/plug/plugins.vim
@@ -433,6 +431,7 @@ link_dotfiles() {
   if [ ! -e $NEOVIM_PLUGINS_FILE ]; then
     cp -rfv $HOME/dotfiles/.config/nvim/plug $HOME/.config/nvim/
   else
+    mkdir $HOME/.config/nvim
     warn "WARNING: neovim plugins file already exists, using existing file"
   fi
 
@@ -461,6 +460,30 @@ nvim_bootstrap() {
 
   nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
   warn "WARNING: :PlugClean has to be done manually"
+}
+
+nvim_link() {
+  # Link neovim configuration
+  info "Linking (neo)vim config..."
+
+  # rm -rf $HOME/.config/nvim/init.vim
+  # ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
+  cp -fv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/general
+  # ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
+  cp -rfv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/keys
+  # ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
+  cp -rfv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/colors
+  # ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
+  cp -rfv $HOME/dotfiles/.config/nvim/theme $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/lua
+  # ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
+  cp -rfv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/plug-config
+  # ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
+  cp -rfv $HOME/dotfiles/.config/nvim/plugconf $HOME/.config/nvim/
 }
 
 # Installing lsp servers
@@ -497,6 +520,7 @@ lsp_bootstrap() {
 
 nvim_setup() {
   nvim_bootstrap
+  nvim_link
   lsp_bootstrap
 }
 
@@ -508,6 +532,8 @@ main() {
 }
 
 main
+
+rm -rf $TEMP_DIR
 
 ok "Dotfiles installed and setup done!!!"
 warn "WARNING: don't forget to reboot in order to get everything working properly"
