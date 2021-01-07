@@ -54,7 +54,7 @@ fi
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
 
-sleep 3
+sleep 1
 
 mkdir $TEMP_DIR
 
@@ -73,8 +73,6 @@ laptop_or_desktop() {
   else
     ok "Running in DESKTOP"
   fi
-
-  sleep 1
 }
 
 # Dotfiles update
