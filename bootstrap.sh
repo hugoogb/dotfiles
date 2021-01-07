@@ -181,7 +181,7 @@ arch_setup(){
   # ~/.config/gtk-3.0/settings.ini
   # rm -rf $HOME/.config/gtk-3.0
   # ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
-  cp -fv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
+  cp -rfv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
 
   # qt theme
   echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
@@ -252,7 +252,13 @@ ranger_setup() {
   # ln -sv $HOME/dotfiles/.config/ranger/rc.conf $HOME/.config/ranger/rc.conf
   cp -rfv $HOME/dotfiles/.config/ranger $HOME/.config/
 
-  git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins
+  RANGER_PLUGIN_DIR=$HOME/.config/ranger/plugins
+
+  if [ ! -d $RANGER_PLUGIN_DIR ]; then
+    git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins
+  else
+    warn "WARNING: ranger plugins already installed"
+  fi
 }
 
 # Alacritty
