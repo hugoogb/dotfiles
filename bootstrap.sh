@@ -46,16 +46,20 @@ program_exists() {
 
 ACTUAL_DIR=`pwd`
 DOTDIR=$HOME/dotfiles
-TEMP_DIR=$HOME/temp
+
+if [ ! -d $TEMP_DIR ]; then
+  TEMP_DIR=$HOME/temp
+fi
 
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
+
 sleep 3
 
 mkdir $TEMP_DIR
 
 if ! program_exists "git"; then
-  error "Git is not installed"
+  error "ERROR: git is not installed"
 fi
 
 # check if running in laptop or desktop
@@ -66,10 +70,8 @@ laptop_or_desktop() {
 
   if [ "$(ls -A $POWER_DIR)" ]; then
     ok "Running in LAPTOP"
-    RUNNING_IN=laptop
   else
     ok "Running in DESKTOP"
-    RUNNING_IN=desktop
   fi
 
   sleep 1
@@ -136,6 +138,10 @@ aur_helper() {
     cd $ACTUAL_DIR
   else
     warn "WARNING: yay already installed"
+  fi
+
+  if ! program_exists "yay"; then
+    error "ERROR: yay is not installed, rerun script or install manually"
   fi
 }
 
@@ -204,9 +210,6 @@ arch_setup(){
   # rm -rf $HOME/.config/gtk-3.0
   # ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
   cp -rfv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
-
-  # qt theme
-  echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
 }
 
 # grub themes installation, configure them with grub-customizer
@@ -328,7 +331,7 @@ arch_install_setup() {
 }
 
 # LSP Install
-lsp_install() {
+lsp_dependencies() {
   info "Installing LSP dependencies..."
 
   # npm setup
@@ -408,8 +411,8 @@ vimplug_install() {
 }
 
 # Linking dotfiles
-link_dotfiles() {
-  info "Linking dotfiles..."
+dotfiles_setup() {
+  info "Setting up dotfiles (bash,zsh,starship,etc)..."
 
   # Link .bashrc
   # rm -rf $HOME/.bashrc
@@ -449,10 +452,10 @@ link_dotfiles() {
 }
 
 general_install() {
-  lsp_install
+  lsp_dependencies
   ohmyzsh_install
   vimplug_install
-  link_dotfiles
+  dotfiles_setup
 }
 
 # Bootstraping NVIM
@@ -460,12 +463,12 @@ nvim_bootstrap() {
   info "Bootstraping nVim..."
 
   nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
-  warn "WARNING: :PlugClean has to be done manually"
+  warn "WARNING: not performing :PlugUpdate and :PlugClean, do it manually"
 }
 
-nvim_link() {
+nvim_copy_setup_files() {
   # Link neovim configuration
-  info "Linking (neo)vim config..."
+  info "Setting up (neo)vim config..."
 
   # rm -rf $HOME/.config/nvim/init.vim
   # ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
@@ -521,7 +524,7 @@ lsp_bootstrap() {
 
 nvim_setup() {
   nvim_bootstrap
-  nvim_link
+  nvim_copy_setup_files
   lsp_bootstrap
 }
 
