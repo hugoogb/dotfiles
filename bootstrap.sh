@@ -50,6 +50,7 @@ TEMP_DIR=$HOME/temp
 
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
+sleep 3
 
 mkdir $TEMP_DIR
 
@@ -64,14 +65,14 @@ laptop_or_desktop() {
   POWER_DIR=/sys/class/power_supply
 
   if [ "$(ls -A $POWER_DIR)" ]; then
-    ok "Running in LAPTOP..."
+    ok "Running in LAPTOP"
     RUNNING_IN=laptop
   else
-    ok "Running in DESKTOP..."
+    ok "Running in DESKTOP"
     RUNNING_IN=desktop
   fi
 
-  sleep 3
+  sleep 1
 }
 
 # Dotfiles update
@@ -85,7 +86,7 @@ update_dotfiles() {
 
 clone_dotfiles() {
   if [ -d $DOTDIR ]; then
-    warn "WARNING: dotfiles dir already exists..."
+    warn "WARNING: dotfiles directory already exists"
     update_dotfiles
   else
     info "Cloning dotfiles..."
@@ -93,7 +94,7 @@ clone_dotfiles() {
     update_dotfiles
   fi
 
-  ok "Dotfiles cloned and updated succesfully!!!"
+  ok "Dotfiles cloned and updated"
 }
 
 clone_update_repo() {
@@ -160,7 +161,7 @@ arch_setup(){
   # ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
   cp -fv $HOME/dotfiles/.xprofile $HOME/
 
-  info "Installing material black blueberry theme and custom mouse..."
+  info "Downloading material black blueberry theme and custom mouse..."
 
   mkdir $TEMP_DIR/themes
   cd $TEMP_DIR/themes
@@ -210,7 +211,7 @@ arch_setup(){
 
 # grub themes installation, configure them with grub-customizer
 grub_themes_install() {
-  info "Installing vimix grub theme..."
+  info "Downloading vimix grub theme..."
 
   GRUB_THEME_DIR=/boot/grub/themes/
 
@@ -221,7 +222,7 @@ grub_themes_install() {
     git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
     sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
   else
-    warn "WARNING: Vimix grub theme already installed"
+    warn "WARNING: Vimix grub theme already downloaded"
   fi
 }
 
