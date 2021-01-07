@@ -1,5 +1,5 @@
 " GENERAL COLORS CONFIG
-"----------------------
+"-----------------------
 
 " -> Functions
 fun! TrimWhitespace()

@@ -67,7 +67,9 @@ primary_widgets = [
 
     icon(bg="color3", text=' '),  # Icon: nf-fa-feed
 
-    widget.Net(**base(bg='color3'), interface='wlp1s0'),
+    # widget.Net(**base(bg='color3'), interface='wlp1s0'),
+    widget.Net(**base(bg='color3'), interface='enp3s0'),
+    # widget.Net(**base(bg='color3'), interface='enp0s20f0u7u4'),
 
     powerline('color2', 'color3'),
 
