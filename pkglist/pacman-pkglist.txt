@@ -11,7 +11,9 @@ brightnessctl
 cbatticon
 clang
 cloc
+dhclient
 discord
+dnsmasq
 efibootmgr
 fakeroot
 feh
