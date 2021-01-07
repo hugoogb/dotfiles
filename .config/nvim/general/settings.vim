@@ -55,6 +55,7 @@ let g:python3_host_prog='/usr/bin/python3'
 com! W w
 com! Wq wq
 com! WQ wq
+com! Qa qa
 
 if executable('rg')
     let g:rg_derive_root='true'
