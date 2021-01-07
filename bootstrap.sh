@@ -433,12 +433,17 @@ dotfiles_setup() {
 
   info "Copying (neo)vim plugins file..."
 
+  NEOVIM_DIR=$HOME/.config/nvim
+
+  if [ ! -d $NEOVIM_DIR ]; then
+    mkdir -p $HOME/.config/nvim
+  fi
+
   NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/plug/plugins.vim
 
   if [ ! -e $NEOVIM_PLUGINS_FILE ]; then
     cp -rfv $HOME/dotfiles/.config/nvim/plug $HOME/.config/nvim/
   else
-    mkdir $HOME/.config/nvim
     warn "WARNING: neovim plugins file already exists, using existing file"
   fi
 
