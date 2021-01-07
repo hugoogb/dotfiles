@@ -13,11 +13,10 @@ source $HOME/.config/nvim/plug-config/telescope.vim
 source $HOME/.config/nvim/plug-config/nerdcommenter.vim
 source $HOME/.config/nvim/plug-config/airline.vim
 source $HOME/.config/nvim/plug-config/indentline.vim
-source $HOME/.config/nvim/plug-config/cpp-enhanced-highlight.vim
-source $HOME/.config/nvim/plug-config/auto-pairs.vim
-source $HOME/.config/nvim/plug-config/vim-highlightedyank.vim
+source $HOME/.config/nvim/plug-config/auto_pairs.vim
+source $HOME/.config/nvim/plug-config/highlightedyank.vim
 
 " -> Colors
-source $HOME/.config/nvim/colors/general-colors.vim
+source $HOME/.config/nvim/colors/general.vim
 " Theme
-source $HOME/.config/nvim/colors/gruvbox-dark.vim
+source $HOME/.config/nvim/colors/gruvbox.vim
