@@ -47,9 +47,19 @@ program_exists() {
 ACTUAL_DIR=`pwd`
 DOTDIR=$HOME/dotfiles
 TEMP_DIR=$HOME/temp
+CONFIG_DIR=$HOME/.config
+LOCAL_BIN_DIR=$HOME/.local/bin
 
 if [ ! -d $TEMP_DIR ]; then
   mkdir $TEMP_DIR
+fi
+
+if [ ! -d $CONFIG_DIR ]; then
+  mkdir $CONFIG_DIR
+fi
+
+if [ ! -d $LOCAL_BIN_DIR ]; then
+  mkdir -p $LOCAL_BIN_DIR
 fi
 
 ok "Welcome to @hugoogb dotfiles!!!"
@@ -156,10 +166,6 @@ aur_pkg_install() {
 arch_setup(){
   info "Setting up .xprofile..."
 
-  mkdir $HOME/.config
-  mkdir -p $HOME/.local/bin
-
-  # .xprofile
   # rm $HOME/.xprofile
   # ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
   cp -fv $HOME/dotfiles/.xprofile $HOME/
@@ -176,7 +182,7 @@ arch_setup(){
   if [ ! -d $THEME ]; then
     curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry_1.9.1.zip -o Material-Black-Blueberry.zip
     unzip -q Material-Black-Blueberry.zip
-    sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes/
+    sudo cp -rf $TEMP_DIR/themes/Material-Black-Blueberry /usr/share/themes/
   else
     warn "WARNING: Material Black Blueberry theme already downloaded"
   fi
@@ -184,7 +190,7 @@ arch_setup(){
   if [ ! -d $ICON_THEME ]; then
     curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry-Suru_1.9.1.zip -o Material-Black-Blueberry-Suru.zip
     unzip -q Material-Black-Blueberry-Suru.zip
-    sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons/
+    sudo cp -rf $TEMP_DIR/themes/Material-Black-Blueberry-Suru /usr/share/icons/
   else
     warn "WARNING: Material Black Blueberry Suru icon theme already downloaded"
   fi
@@ -192,7 +198,7 @@ arch_setup(){
   if [ ! -d $CURSOR_THEME ]; then
     curl https://raw.githubusercontent.com/hugoogb/themes/master/165371-Breeze.tar.gz -o Breeze.tar.gz
     tar -xf Breeze.tar.gz
-    sudo cp -rf $HOME/temp/Breeze /usr/share/icons/
+    sudo cp -rf $TEMP_DIR/themes/Breeze /usr/share/icons/
   else
     warn "WARNING: Breeze cursor theme already downloaded"
   fi
