@@ -46,17 +46,16 @@ program_exists() {
 
 ACTUAL_DIR=`pwd`
 DOTDIR=$HOME/dotfiles
+TEMP_DIR=$HOME/temp
 
 if [ ! -d $TEMP_DIR ]; then
-  TEMP_DIR=$HOME/temp
+  mkdir $TEMP_DIR
 fi
 
 ok "Welcome to @hugoogb dotfiles!!!"
 info "Starting bootstrap process..."
 
 sleep 1
-
-mkdir $TEMP_DIR
 
 if ! program_exists "git"; then
   error "ERROR: git is not installed"
