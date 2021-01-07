@@ -61,12 +61,14 @@ laptop_or_desktop() {
   POWER_DIR=/sys/class/power_supply
 
   if [ "$(ls -A $POWER_DIR)" ]; then
-    ok "Running in laptop"
+    ok "Running in LAPTOP..."
     RUNNING_IN=laptop
   else
-    ok "Running in desktop"
+    ok "Running in DESKTOP..."
     RUNNING_IN=desktop
   fi
+
+  sleep 3
 }
 
 # Dotfiles update
@@ -152,8 +154,9 @@ arch_setup(){
   mkdir -p $HOME/.local/bin
 
   # .xprofile
-  rm $HOME/.xprofile
-  ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
+  # rm $HOME/.xprofile
+  # ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
+  cp -fv $HOME/dotfiles/.xprofile $HOME/
 
   info "Installing material black theme and custom mouse..."
 
@@ -163,20 +166,22 @@ arch_setup(){
   unzip -q Material-Black-Blueberry_1.9.1.zip
   unzip -q Material-Black-Blueberry-Suru_1.9.1.zip
   tar -xf 165371-Breeze.tar.gz
-  sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes
-  sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons
-  sudo cp -rf $HOME/temp/Breeze /usr/share/icons
+  sudo cp -rf $HOME/temp/Material-Black-Blueberry /usr/share/themes/
+  sudo cp -rf $HOME/temp/Material-Black-Blueberry-Suru /usr/share/icons/
+  sudo cp -rf $HOME/temp/Breeze /usr/share/icons/
   cd $ACTUAL_DIR
   rm -rf $HOME/temp
 
-  sudo cp -fv $HOME/dotfiles/.local/themes/index.theme /usr/share/icons/default
+  sudo cp -fv $HOME/dotfiles/.local/themes/index.theme /usr/share/icons/default/
 
   # ~/.gtkrc-2.0
-  rm $HOME/.gtkrc-2.0
-  ln -sv $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
+  # rm $HOME/.gtkrc-2.0
+  # ln -sv $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
+  cp -fv $HOME/dotfiles/.gtkrc-2.0 $HOME/
   # ~/.config/gtk-3.0/settings.ini
-  rm -rf $HOME/.config/gtk-3.0
-  ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
+  # rm -rf $HOME/.config/gtk-3.0
+  # ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
+  cp -fv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
 
   # qt theme
   echo "export QT_STYLE_OVERRIDE=kvantum" >> $HOME/.profile
@@ -186,24 +191,27 @@ arch_setup(){
 grub_themes_install() {
   info "Installing vimix grub theme..."
 
-  GRUB_THEME_DIR=/boot/grub/themes
+  GRUB_THEME_DIR=/boot/grub/themes/
 
   GRUB_VIMIX_THEME_DIR=/boot/grub/themes/Vimix
   VIMIX_CLONE_DIR=$HOME/temp/grub2-theme-vimix
 
-  sudo rm -rf $GRUB_VIMIX_THEME_DIR
-  git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
-  sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
-  rm -rf $HOME/temp
-  cd $ACTUAL_DIR
+  if [ ! -d $GRUB_VIMIX_THEME_DIR ]; then
+    git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
+    sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
+    rm -rf $HOME/temp
+    cd $ACTUAL_DIR
+  else
+    warn "WARNING: Vimix grub theme already installed"
+  fi
 }
 
 # lightdm setup
 lightdm_setup() {
   info "Setting up lightdm..."
 
-  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm.conf /etc/lightdm
-  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm-webkit2-greeter.conf /etc/lightdm
+  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm.conf /etc/lightdm/
+  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm-webkit2-greeter.conf /etc/lightdm/
 }
 
 # qtile setup
@@ -213,8 +221,9 @@ qtile_setup() {
   # needed to show wifi widget
   pip install psutil
 
-  rm -rf $HOME/.config/qtile
-  ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile
+  # rm -rf $HOME/.config/qtile
+  # ln -sv $HOME/dotfiles/.config/qtile $HOME/.config/qtile
+  cp -rfv $HOME/dotfiles/.config/qtile $HOME/.config/
 }
 
 # Rofi setup
@@ -223,37 +232,39 @@ rofi_setup() {
 
   cd $HOME
   git clone https://github.com/davatorium/rofi-themes.git
-  sudo cp -fv rofi-themes/User\ Themes/onedark.rasi /usr/share/rofi/themes
+  sudo cp -fv rofi-themes/User\ Themes/onedark.rasi /usr/share/rofi/themes/
   cd $ACTUAL_DIR
   rm -rf $HOME/rofi-themes
 
-  sudo cp -fv $HOME/dotfiles/.local/themes/onedark.rasi /usr/share/rofi/themes
+  sudo cp -fv $HOME/dotfiles/.local/themes/onedark.rasi /usr/share/rofi/themes/
 
-  rm -rf $HOME/.config/rofi
-  ln -sv $HOME/dotfiles/.config/rofi $HOME/.config/rofi
+  # rm -rf $HOME/.config/rofi
+  # ln -sv $HOME/dotfiles/.config/rofi $HOME/.config/rofi
+  cp -rfv $HOME/dotfiles/.config/rofi $HOME/.config/
 }
 
 # Ranger setup
 ranger_setup() {
   info "Setting up ranger..."
 
-  rm -rf $HOME/.config/ranger
-  mkdir -p $HOME/.config/ranger
+  # rm -rf $HOME/.config/ranger
+  # mkdir -p $HOME/.config/ranger
+  # ln -sv $HOME/dotfiles/.config/ranger/rc.conf $HOME/.config/ranger/rc.conf
+  cp -rfv $HOME/dotfiles/.config/ranger $HOME/.config/
 
   git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins
-
-  ln -sv $HOME/dotfiles/.config/ranger/rc.conf $HOME/.config/ranger/rc.conf
 }
 
 # Alacritty
 alacritty_setup() {
   info "Setting up alacritty..."
 
-  rm -rf $HOME/.config/alacritty
-  mkdir -p $HOME/.config/alacritty
-  ln -sv $HOME/dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
-  ln -sv $HOME/dotfiles/.config/alacritty/fonts.yaml $HOME/.config/alacritty/fonts.yaml
-  ln -sv $HOME/dotfiles/.config/alacritty/themes $HOME/.config/alacritty/themes
+  # rm -rf $HOME/.config/alacritty
+  # mkdir -p $HOME/.config/alacritty
+  # ln -sv $HOME/dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+  # ln -sv $HOME/dotfiles/.config/alacritty/fonts.yaml $HOME/.config/alacritty/fonts.yaml
+  # ln -sv $HOME/dotfiles/.config/alacritty/themes $HOME/.config/alacritty/themes
+  cp -rfv $HOME/dotfiles/.config/alacritty $HOME/.config/
 
   info "Installing pycritty..."
 
@@ -271,10 +282,12 @@ alacritty_setup() {
 openbox_setup() {
   info "Setting up openbox..."
 
-  rm -rf $HOME/.config/openbox
-  ln -sv $HOME/dotfiles/.config/openbox $HOME/.config/openbox
-  rm -rf $HOME/.config/tint2
-  ln -sv $HOME/dotfiles/.config/tint2 $HOME/.config/tint2
+  # rm -rf $HOME/.config/openbox
+  # ln -sv $HOME/dotfiles/.config/openbox $HOME/.config/openbox
+  cp -rfv $HOME/dotfiles/.config/openbox $HOME/.config/
+  # rm -rf $HOME/.config/tint2
+  # ln -sv $HOME/dotfiles/.config/tint2 $HOME/.config/tint2
+  cp -rfv $HOME/dotfiles/.config/tint2 $HOME/.config/
 }
 
 arch_install_setup() {
@@ -317,36 +330,36 @@ ohmyzsh_install() {
 
   OH_MY_ZSH_DIR=$HOME/.oh-my-zsh
 
-  if [ -d $OH_MY_ZSH_DIR ]; then
-    warn "WARNING: oh-my-zsh already installed"
-  else
+  if [ ! -d $OH_MY_ZSH_DIR ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  else
+    warn "WARNING: oh-my-zsh already installed"
   fi
 
   info "Installing zsh plugins..."
 
   ZSH_SYNTAX_HIGHLIGHTING_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
-  if [ -d $ZSH_SYNTAX_HIGHLIGHTING_PLUGIN ]; then
-    warn "WARNING: oh-my-zsh plugin: zsh-syntax-highlighting already installed"
-  else
+  if [ ! -d $ZSH_SYNTAX_HIGHLIGHTING_PLUGIN ]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  else
+    warn "WARNING: oh-my-zsh plugin: zsh-syntax-highlighting already installed"
   fi
 
   ZSH_K_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/k
 
-  if [ -d $ZSH_K_PLUGIN ]; then
-    warn "WARNING: oh-my-zsh plugin: k already installed"
-  else
+  if [ ! -d $ZSH_K_PLUGIN ]; then
     git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
+  else
+    warn "WARNING: oh-my-zsh plugin: k already installed"
   fi
 
   ZSH_AUTOSUGGESTIONS_PLUGIN=$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-  if [ -d $ZSH_AUTOSUGGESTIONS_PLUGIN ]; then
-    warn "WARNING: oh-my-zsh plugin: zsh-autosuggestions already installed"
-  else
+  if [ ! -d $ZSH_AUTOSUGGESTIONS_PLUGIN ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  else
+    warn "WARNING: oh-my-zsh plugin: zsh-autosuggestions already installed"
   fi
 
   info "Installing starship..."
@@ -370,34 +383,62 @@ link_dotfiles() {
   info "Linking dotfiles..."
 
   # Link .bashrc
-  rm -rf $HOME/.bashrc
-  ln -sv $HOME/dotfiles/.bashrc $HOME/.bashrc
+  # rm -rf $HOME/.bashrc
+  # ln -sv $HOME/dotfiles/.bashrc $HOME/.bashrc
+  cp -fv $HOME/dotfiles/.bashrc $HOME/
 
   # Link the zsh and starship prompt
-  rm -rf $HOME/.zshrc
-  ln -sv $HOME/dotfiles/.zshrc $HOME/.zshrc
-  rm -rf $HOME/.config/starship/
-  mkdir -p $HOME/.config/starship
-  ln -sv $HOME/dotfiles/.config/starship/starship.toml $HOME/.config/starship
+  # rm -rf $HOME/.zshrc
+  # ln -sv $HOME/dotfiles/.zshrc $HOME/.zshrc
+  cp -fv $HOME/dotfiles/.zshrc $HOME/
+  # rm -rf $HOME/.config/starship/
+  # mkdir -p $HOME/.config/starship
+  # ln -sv $HOME/dotfiles/.config/starship/starship.toml $HOME/.config/starship/starship.toml
+  cp -rfv $HOME/dotfiles/.config/starship $HOME/.config/
+
+  # Link neovim configuration
+  info "Linking (neo)vim config..."
+
+  mkdir -p $HOME/.config/nvim
+
+  # rm -rf $HOME/.config/nvim/init.vim
+  # ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
+  cp -fv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/general
+  # ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
+  cp -rfv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/keys
+  # ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
+  cp -rfv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/colors
+  # ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
+  cp -rfv $HOME/dotfiles/.config/nvim/theme $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/lua
+  # ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
+  cp -rfv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/
+  # rm -rf $HOME/.config/nvim/plug-config
+  # ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
+  cp -rfv $HOME/dotfiles/.config/nvim/plugconf $HOME/.config/nvim/
 
   info "Copying (neo)vim plugins file..."
 
-  NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/vim-plug/plugins.vim
+  NEOVIM_PLUGINS_FILE=$HOME/.config/nvim/plug/plugins.vim
 
-  if [ -e $NEOVIM_PLUGINS_FILE ]; then
-    warn "WARNING: neovim plugins file already exists, using existing file"
+  if [ ! -e $NEOVIM_PLUGINS_FILE ]; then
+    cp -rfv $HOME/dotfiles/.config/nvim/plug $HOME/.config/nvim/
   else
-    cp -rfv $HOME/dotfiles/.config/nvim/vim-plug $HOME/.config/nvim/vim-plug
+    warn "WARNING: neovim plugins file already exists, using existing file"
   fi
 
   # ssh config
   SSH_CONFIG_FILE=$HOME/.ssh/config
 
-  if [ -e $SSH_CONFIG_FILE ]; then
-    warn "WARNING: ssh config file already exists, using existing file"
-  else
+  if [ ! -d $SSH_DIR ]; then
     mkdir $HOME/.ssh
-    cp -fv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/config
+  elif [ ! -e $SSH_CONFIG_FILE ]; then
+    cp -fv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/
+  else
+    warn "WARNING: ssh config file already exists, using existing file"
   fi
 }
 
@@ -414,24 +455,6 @@ nvim_bootstrap() {
 
   nvim --headless "+PlugUpgrade" "+PlugInstall" "+qall"
   warn "WARNING: :PlugClean has to be done manually"
-}
-
-nvim_link() {
-  info "Linking (neo)vim config..."
-
-  # Link neovim configuration
-  rm -rf $HOME/.config/nvim/init.vim
-  ln -sv $HOME/dotfiles/.config/nvim/init.vim $HOME/.config/nvim/init.vim
-  rm -rf $HOME/.config/nvim/general
-  ln -sv $HOME/dotfiles/.config/nvim/general $HOME/.config/nvim/general
-  rm -rf $HOME/.config/nvim/keys
-  ln -sv $HOME/dotfiles/.config/nvim/keys $HOME/.config/nvim/keys
-  rm -rf $HOME/.config/nvim/colors
-  ln -sv $HOME/dotfiles/.config/nvim/colors $HOME/.config/nvim/colors
-  rm -rf $HOME/.config/nvim/lua
-  ln -sv $HOME/dotfiles/.config/nvim/lua $HOME/.config/nvim/lua
-  rm -rf $HOME/.config/nvim/plug-config
-  ln -sv $HOME/dotfiles/.config/nvim/plug-config $HOME/.config/nvim/plug-config
 }
 
 # Installing lsp servers
@@ -468,7 +491,6 @@ lsp_bootstrap() {
 
 nvim_setup() {
   nvim_bootstrap
-  nvim_link
   lsp_bootstrap
 }
 
