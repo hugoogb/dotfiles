@@ -298,13 +298,7 @@ alacritty_setup() {
   info "Installing pycritty..."
 
   # Pycritty
-  if ! program_exists "pycritty"; then
-    git clone https://github.com/antoniosarosi/pycritty $HOME/.config/alacritty/pycritty
-    ln -sf $HOME/.config/alacritty/pycritty/src/main.py $HOME/.local/bin/pycritty
-    chmod 755 $HOME/.config/alacritty/pycritty/src/main.py
-  else
-    warn "WARNING: pycritty already installed"
-  fi
+  pip install pycritty
 }
 
 # Openbox setup
