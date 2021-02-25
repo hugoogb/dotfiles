@@ -7,6 +7,8 @@ eval "$(ssh-agent -s)"
 ssh-add $HOME/.ssh/id_me
 ssh-add $HOME/.ssh/id_uni
 
+source $HOME/projects/projectAutoInit/create.sh
+
 clear
 
 neofetch
@@ -192,9 +194,9 @@ alias :q="exit"
 # Generate pacman pkg list and AUR pkg list
 pkgen() {
   # Pacman pkg list
-  pacman -Qqen > $HOME/dotfiles/pkglist/pacman-pkglist.txt
+  pacman -Qqen > $HOME/arch-install/pkglist/pacman-pkglist.txt
   # AUR pkg list
-  pacman -Qqem > $HOME/dotfiles/pkglist/yay-pkglist.txt
+  pacman -Qqem > $HOME/arch-install/pkglist/yay-pkglist.txt
 
   echo "Package lists generated!!!"
 }
