@@ -16,7 +16,7 @@ if [ -e $SSH_UNI ]; then
   ssh-add $SSH_UNI
 fi
 
-PROJECT_AUTOINIT=$HOME/projects/projectAutoInit/create.sh
+PROJECT_AUTOINIT=$HOME/projectAutoInit/create.sh
 if [ -e $PROJECT_AUTOINIT ]; then
   source $PROJECT_AUTOINIT
 fi

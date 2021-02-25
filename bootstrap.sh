@@ -94,7 +94,6 @@ clone_dotfiles() {
 }
 
 clone_update_repo() {
-  laptop_or_desktop
   clone_dotfiles
 }
 
