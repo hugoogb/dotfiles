@@ -3,11 +3,23 @@ clear
 figlet -lt github | lolcat -f
 
 # Start ssh agent
-eval "$(ssh-agent -s)"
-ssh-add $HOME/.ssh/id_me
-ssh-add $HOME/.ssh/id_uni
+if command -v ssh-agent &> /dev/null; then
+  eval "$(ssh-agent -s)"
+fi
 
-source $HOME/projects/projectAutoInit/create.sh
+SSH_ME=$HOME/.ssh/id_me
+if [ -e $SSH_ME ]; then
+  ssh-add $SSH_ME
+fi
+SSH_UNI=$HOME/.ssh/id_uni
+if [ -e $SSH_UNI ]; then
+  ssh-add $SSH_UNI
+fi
+
+PROJECT_AUTOINIT=$HOME/projects/projectAutoInit/create.sh
+if [ -e $PROJECT_AUTOINIT ]; then
+  source $PROJECT_AUTOINIT
+fi
 
 clear
 
