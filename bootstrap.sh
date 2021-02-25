@@ -292,17 +292,6 @@ dotfiles_setup() {
   else
     warn "WARNING: neovim plugins file already exists, using existing file"
   fi
-
-  # ssh config
-  SSH_CONFIG_FILE=$HOME/.ssh/config
-
-  if [ ! -d $SSH_DIR ]; then
-    mkdir $HOME/.ssh
-  elif [ ! -e $SSH_CONFIG_FILE ]; then
-    cp -fv $HOME/dotfiles/.local/.ssh/config $HOME/.ssh/
-  else
-    warn "WARNING: ssh config file already exists, using existing file"
-  fi
 }
 
 general_install() {
