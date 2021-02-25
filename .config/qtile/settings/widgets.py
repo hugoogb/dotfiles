@@ -8,7 +8,9 @@ base = lambda fg='text', bg='dark': {
     'background': colors[bg]
 }
 
-separator = lambda: widget.Sep(**base(), linewidth=0, padding=5)
+
+def separator(): return widget.Sep(**base(), linewidth=0, padding=5)
+
 
 icon = lambda fg='text', bg='dark', fontsize=16, text="?": widget.TextBox(
     **base(fg, bg),
@@ -18,13 +20,14 @@ icon = lambda fg='text', bg='dark', fontsize=16, text="?": widget.TextBox(
 )
 
 powerline = lambda fg="light", bg="dark": widget.TextBox(
-   **base(fg, bg),
+    **base(fg, bg),
     text="",  # Icon: nf-oct-triangle_left
     fontsize=37,
     padding=-2
 )
 
-workspaces = lambda: [
+
+def workspaces(): return [
     separator(),
     widget.GroupBox(
         **base(fg='light'),
@@ -52,6 +55,7 @@ workspaces = lambda: [
     separator(),
 ]
 
+
 primary_widgets = [
     *workspaces(),
 
@@ -67,8 +71,8 @@ primary_widgets = [
 
     icon(bg="color3", text=' '),  # Icon: nf-fa-feed
 
-    # widget.Net(**base(bg='color3'), interface='wlp1s0'),
-    widget.Net(**base(bg='color3'), interface='enp3s0'),
+    widget.Net(**base(bg='color3'), interface='wlp1s0'),
+    # widget.Net(**base(bg='color3'), interface='enp3s0'),
     # widget.Net(**base(bg='color3'), interface='enp0s20f0u7u4'),
 
     powerline('color2', 'color3'),

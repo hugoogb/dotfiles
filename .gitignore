@@ -1,3 +1,11 @@
 /*
-!README.md
 !.gitignore
+!README.md
+
+!.config
+!.bashrc
+!.zshrc
+!bootstrap.sh
+!pkglist
+!wallpapers
+!img 
