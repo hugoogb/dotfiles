@@ -3,11 +3,8 @@
 !README.md
 
 !.config
-!.local
 !.bashrc
 !.zshrc
-!.xprofile
-!.gtkrc-2.0
 !bootstrap.sh
 !pkglist
 !wallpapers
