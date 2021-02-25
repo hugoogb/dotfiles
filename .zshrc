@@ -151,6 +151,8 @@ alias reload="source $HOME/.zshrc"
 alias dotstrap="curl -s https://raw.githubusercontent.com/hugoogb/dotfiles/master/bootstrap.sh | bash"
 # Clone and update all my repos
 alias cloneall="curl -s https://raw.githubusercontent.com/hugoogb/clone-all-repos/master/clone.sh | bash"
+# Install all arch programs
+alias archinstall="curl -s https://raw.githubusercontent.com/hugoogb/arch-install/master/installation.sh | bash"
 
 # System aliases
 alias distro="cat /etc/*-release | head -1 | tail -1 | cut -d= -f2"
