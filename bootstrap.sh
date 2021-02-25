@@ -71,19 +71,6 @@ if ! program_exists "git"; then
   error "ERROR: git is not installed"
 fi
 
-# check if running in laptop or desktop
-laptop_or_desktop() {
-  info "Checking if you are in laptop or desktop..."
-
-  POWER_DIR=/sys/class/power_supply
-
-  if [ "$(ls -A $POWER_DIR)" ]; then
-    ok "Running in LAPTOP"
-  else
-    ok "Running in DESKTOP"
-  fi
-}
-
 # Dotfiles update
 update_dotfiles() {
   cd $DOTDIR
@@ -109,135 +96,6 @@ clone_dotfiles() {
 clone_update_repo() {
   laptop_or_desktop
   clone_dotfiles
-}
-
-# Installing
-arch_pkg_install() {
-  info "Installing pkg(s)..."
-
-  # Install all pkgs of the list
-  sudo pacman -S --needed --noconfirm - < $HOME/dotfiles/pkglist/pacman-pkglist.txt
-
-  info "Setting up pkg(s)..."
-
-  # lightdm
-  sudo systemctl enable lightdm
-
-  # Notifications
-  sudo cp -fv $HOME/dotfiles/.local/services/notifications/org.freedesktop.Notifications.service /usr/share/dbus-1/services/
-
-  # Bluetooth
-  sudo systemctl enable bluetooth.service
-  sudo cp -fv $HOME/dotfiles/.local/services/bluetooth/main.conf /etc/bluetooth/
-
-  # SSH
-  sudo systemctl enable sshd
-}
-
-# AUR helper (yay) install
-aur_helper() {
-  info "Installing AUR helper (yay)..."
-
-  if ! program_exists "yay"; then
-    git clone https://aur.archlinux.org/yay-git.git $TEMP_DIR/yay
-    cd $TEMP_DIR/yay
-    makepkg -si
-    cd $ACTUAL_DIR
-  else
-    warn "WARNING: yay already installed"
-  fi
-
-  if ! program_exists "yay"; then
-    error "ERROR: yay is not installed, rerun script or install manually"
-  fi
-}
-
-# Install all AUR packages
-aur_pkg_install() {
-  info "Installing AUR pkg(s)..."
-
-  # Install all pkgs of the list
-  yay -S --needed --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu - < $HOME/dotfiles/pkglist/yay-pkglist.txt
-
-  # Bluetooth autoconnect trusted devices
-  sudo systemctl enable bluetooth-autoconnect
-}
-
-arch_setup(){
-  info "Setting up .xprofile..."
-
-  # rm $HOME/.xprofile
-  # ln -sv $HOME/dotfiles/.xprofile $HOME/.xprofile
-  cp -fv $HOME/dotfiles/.xprofile $HOME/
-
-  info "Downloading material black blueberry theme and custom mouse..."
-
-  mkdir $TEMP_DIR/themes
-  cd $TEMP_DIR/themes
-
-  THEME=/usr/share/themes/Material-Black-Blueberry
-  ICON_THEME=/usr/share/icons/Material-Black-Blueberry-Suru
-  CURSOR_THEME=/usr/share/icons/Breeze
-
-  if [ ! -d $THEME ]; then
-    curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry_1.9.1.zip -o Material-Black-Blueberry.zip
-    unzip -q Material-Black-Blueberry.zip
-    sudo cp -rf $TEMP_DIR/themes/Material-Black-Blueberry /usr/share/themes/
-  else
-    warn "WARNING: Material Black Blueberry theme already downloaded"
-  fi
-
-  if [ ! -d $ICON_THEME ]; then
-    curl https://raw.githubusercontent.com/hugoogb/themes/master/Material-Black-Blueberry-Suru_1.9.1.zip -o Material-Black-Blueberry-Suru.zip
-    unzip -q Material-Black-Blueberry-Suru.zip
-    sudo cp -rf $TEMP_DIR/themes/Material-Black-Blueberry-Suru /usr/share/icons/
-  else
-    warn "WARNING: Material Black Blueberry Suru icon theme already downloaded"
-  fi
-
-  if [ ! -d $CURSOR_THEME ]; then
-    curl https://raw.githubusercontent.com/hugoogb/themes/master/165371-Breeze.tar.gz -o Breeze.tar.gz
-    tar -xf Breeze.tar.gz
-    sudo cp -rf $TEMP_DIR/themes/Breeze /usr/share/icons/
-  else
-    warn "WARNING: Breeze cursor theme already downloaded"
-  fi
-
-  cd $ACTUAL_DIR
-
-  sudo cp -fv $HOME/dotfiles/.local/themes/index.theme /usr/share/icons/default/
-
-  # rm $HOME/.gtkrc-2.0
-  # ln -sv $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
-  cp -fv $HOME/dotfiles/.gtkrc-2.0 $HOME/
-  # rm -rf $HOME/.config/gtk-3.0
-  # ln -sv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/gtk-3.0
-  cp -rfv $HOME/dotfiles/.config/gtk-3.0 $HOME/.config/
-}
-
-# grub themes installation, configure them with grub-customizer
-grub_themes_install() {
-  info "Downloading vimix grub theme..."
-
-  GRUB_THEME_DIR=/boot/grub/themes/
-
-  GRUB_VIMIX_THEME_DIR=/boot/grub/themes/Vimix
-  VIMIX_CLONE_DIR=$TEMP_DIR/grub2-theme-vimix
-
-  if [ ! -d $GRUB_VIMIX_THEME_DIR ]; then
-    git clone https://github.com/Se7endAY/grub2-theme-vimix.git $VIMIX_CLONE_DIR
-    sudo cp -rf $VIMIX_CLONE_DIR/Vimix $GRUB_THEME_DIR
-  else
-    warn "WARNING: Vimix grub theme already downloaded"
-  fi
-}
-
-# lightdm setup
-lightdm_setup() {
-  info "Setting up lightdm..."
-
-  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm.conf /etc/lightdm/
-  sudo cp -fv $HOME/dotfiles/.config/lightdm/lightdm-webkit2-greeter.conf /etc/lightdm/
 }
 
 # qtile setup
@@ -313,13 +171,7 @@ openbox_setup() {
   cp -rfv $HOME/dotfiles/.config/tint2 $HOME/.config/
 }
 
-arch_install_setup() {
-  arch_pkg_install
-  aur_helper
-  aur_pkg_install
-  arch_setup
-  grub_themes_install
-  lightdm_setup
+arch_setup() {
   qtile_setup
   rofi_setup
   ranger_setup
@@ -532,7 +384,7 @@ nvim_setup() {
 
 main() {
   clone_update_repo
-  arch_install_setup
+  arch_setup
   general_install
   nvim_setup
 }
@@ -541,5 +393,5 @@ main
 
 rm -rf $TEMP_DIR
 
-ok "Dotfiles installed and setup done!!!"
+ok "Dotfiles setup done!!!"
 warn "WARNING: don't forget to reboot in order to get everything working properly"
